@@ -1,6 +1,12 @@
 # Free SFX Download
 
-Static website with free CC0 sound effects (no music), one-click MP3/WAV downloads, per-category ZIP packs. Hosted on GitHub Pages.
+Static website with 521 free CC0 sound effects in 22 categories (no music), previews, one-click MP3/WAV downloads, per-category ZIP packs. Hosted on GitHub Pages.
+
+## Category ZIP packs
+The ZIPs are NOT in this branch (keeps the Pages site ~250 MB). `_source/build.py` writes them to `release_zips/`; they are committed to the separate **`packs`** branch and linked as `https://github.com/mydevspace2/free-sfx-download/raw/packs/<category>-sfx-pack.zip` (`ZIP_URL` in build.py). After a rebuild that changes sounds, copy the new ZIPs to the packs branch and push it.
+
+## Home page and search
+The home page shows 24 popular picks (`POPULAR` in build.py) plus category tiles, not every sound (mobile speed). The search box loads `search-index.json` (all sounds) on first focus and renders matching cards; `/?q=word` works too. Category pages list all their sounds.
 
 ## Turn on Adsterra ads
 Edit **only** `ads/ads-config.js` (on github.com: open the file → pencil icon → paste → Commit).
@@ -20,7 +26,7 @@ All other links are relative. Then in repo Settings → Pages → Custom domain,
 Every file's original URL, author and licence: `SOURCES.md` and the site's License page.
 
 ## SEO structure
-- Home `/`, 12 category pages `/<category>/`, one page per sound `/sound/<slug>/` (151), plus About / License / Privacy / Terms / Contact.
+- Home `/`, 22 category pages `/<category>/`, one page per sound `/sound/<slug>/` (521), plus About / License / Privacy / Terms / Contact.
 - Every page: unique title + meta description, canonical, Open Graph + Twitter card. JSON-LD: WebSite + SearchAction (`/?q=`) + Organization + FAQPage on home; CollectionPage + ItemList + BreadcrumbList on categories; AudioObject + BreadcrumbList on sound pages.
 - `sitemap.xml` lists every page with `lastmod`; `robots.txt` points to it. Per-sound texts live in `_source/sound_text.py`, category SEO texts in `_source/content.py` (`SEO`).
 

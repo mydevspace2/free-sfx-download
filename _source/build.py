@@ -17,12 +17,16 @@ SITE_URL  = os.environ.get('SFX_SITE_URL', 'https://mydevspace2.github.io/free-s
 BASE_PATH = os.environ.get('SFX_BASE_PATH', '/free-sfx-download/')
 CNAME     = os.environ.get('SFX_CNAME', '')
 SITE_NAME = 'Free SFX Download'
-UPDATED   = datetime.date.today().isoformat()
+# Category ZIPs live on the separate 'packs' branch of the repo (not published by Pages, keeps the site small).
+# build writes them to ZIP_DIR; commit them to the packs branch (see README). Links point to ZIP_URL.
+ZIP_URL   = os.environ.get('SFX_ZIP_URL', 'https://github.com/mydevspace2/free-sfx-download/raw/packs/')
+UPDATED   = os.environ.get('SFX_UPDATED') or datetime.datetime.now(__import__('zoneinfo').ZoneInfo('Asia/Karachi')).date().isoformat()
 ASSET_V   = datetime.datetime.now().strftime('%Y%m%d%H%M')
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 AUDIO = os.path.join(HERE, '..', 'build_audio')
 OUT = os.environ.get('SFX_OUT', os.path.join(HERE, '..', 'web'))
+ZIP_DIR = os.environ.get('SFX_ZIP_DIR', os.path.join(HERE, '..', 'release_zips'))
 SOURCES = json.load(open(os.path.join(HERE, 'sources.json')))
 
 meta = json.load(open(os.path.join(AUDIO, 'meta.json')))
@@ -53,6 +57,16 @@ CAT_ICONS = {  # 24x24 stroke icons, one per category
  'glitches-sci-fi': '<path d="M3 7h7v4h5V7h6M3 15h4v3h9v-3h5"/>',
  'cartoon-funny': '<circle cx="12" cy="12" r="9"/><path d="M8.5 14.5a4.5 4.5 0 0 0 7 0M9 9.5v.5M15 9.5v.5"/>',
  'typing-paper': '<rect x="2.5" y="6" width="19" height="12" rx="2"/><path d="M6.5 10h.01M10 10h.01M13.5 10h.01M17 10h.01M7.5 14h9"/>',
+ 'laughs-applause': '<circle cx="12" cy="12" r="9"/><path d="M7.5 13h9a4.5 4.5 0 0 1-9 0zM8 9.5l2-1M16 9.5l-2-1"/>',
+ 'human-reactions': '<circle cx="12" cy="8" r="4"/><path d="M4.5 21a7.5 7.5 0 0 1 15 0"/>',
+ 'horror-suspense': '<path d="M5 21V11a7 7 0 0 1 14 0v10l-2.4-2-2.3 2-2.3-2-2.3 2-2.3-2z"/><path d="M9.5 10.5v.5M14.5 10.5v.5"/>',
+ 'retro-game-8bit': '<rect x="2.5" y="7" width="19" height="11" rx="4"/><path d="M7.5 10.5v4M5.5 12.5h4M15.5 11.5h.01M18 13.5h.01"/>',
+ 'animals': '<circle cx="6.5" cy="10" r="1.8"/><circle cx="10" cy="6" r="1.8"/><circle cx="14.5" cy="6" r="1.8"/><circle cx="18" cy="10" r="1.8"/><path d="M8 18c0-3.2 1.9-6 4.3-6s4.2 2.8 4.2 6c0 1.8-1.5 2.6-3 2.1a4 4 0 0 0-2.6 0C9.4 20.6 8 19.8 8 18z"/>',
+ 'sports-games': '<circle cx="12" cy="12" r="9"/><path d="M3.5 9.5c5 1 12 1 17 0M3.5 14.5c5-1 12-1 17 0M12 3c-3 5-3 13 0 18"/>',
+ 'doors-household': '<path d="M5 21V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v17M3 21h18M15 12h.01"/>',
+ 'vehicles-horns': '<path d="M3 16v-3l2-5h14l2 5v3zM4 16v2.5h3V16M17 16v2.5h3V16"/><path d="M7.5 12.5h.01M16.5 12.5h.01"/>',
+ 'nature-weather': '<path d="M7 17a4 4 0 0 1-.5-8 5.5 5.5 0 0 1 10.6-1.2A3.8 3.8 0 0 1 17.5 17"/><path d="M12.5 13l-2 4h3l-2 4"/>',
+ 'guns-weapons': '<circle cx="12" cy="12" r="7.5"/><path d="M12 2v5M12 17v5M2 12h5M17 12h5"/>',
 }
 def cat_icon(c, size=24):
     return f'<svg class="ci" viewBox="0 0 24 24" width="{size}" height="{size}" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">{CAT_ICONS[c]}</svg>'
@@ -136,7 +150,7 @@ def page(rel, path, title, desc, body, extra_head='', ld=None, h_type='website',
  <div class="wrap hdr">
   <a class="brand" href="{rel}">{ICON}<span class="wm">FREE<b><span class="sr">&nbsp;</span>SFX</b><small><span class="sr">&nbsp;</span>download</small></span></a>
   <nav class="topnav" aria-label="Main">
-   <a href="{rel}#sounds">All sounds</a>
+   <a href="{rel}#sounds">Search sounds</a>
    <a href="{rel}license/">License</a>
    <a href="{rel}about/">About</a>
   </nav>
@@ -148,7 +162,7 @@ def page(rel, path, title, desc, body, extra_head='', ld=None, h_type='website',
  <div class="navpanel" id="navpanel">
   <div class="wrap">
    <nav class="panelgrid" aria-label="Categories">{panel}</nav>
-   <nav class="panellinks" aria-label="Site"><a href="{rel}#sounds">All sounds</a><a href="{rel}license/">License</a><a href="{rel}about/">About</a><a href="{rel}contact/">Contact</a></nav>
+   <nav class="panellinks" aria-label="Site"><a href="{rel}#sounds">Search sounds</a><a href="{rel}license/">License</a><a href="{rel}about/">About</a><a href="{rel}contact/">Contact</a></nav>
   </div>
  </div>
 </header>
@@ -210,33 +224,51 @@ def write(path, text):
     open(full, 'w', encoding='utf-8').write(text)
 
 # ---------------------------------------------------------------- home
+POPULAR = ['air-horn-honk', 'cartoon-boing', 'record-scratch', 'ba-dum-tss-joke-drum', 'wrong-answer-buzzer', 'crickets-awkward-silence',
+           'censor-beep', 'big-crowd-applause', 'evil-man-laugh', 'surprised-wah-exclamation', 'quick-fart', 'stadium-air-horn-blast',
+           'quick-swipe-transition', 'mega-swoosh', 'hard-punch-hit', 'deep-bass-boom', 'thunder-crack-boom', 'shepard-tone-riser',
+           'mouth-bubble-pop', 'dslr-shutter-click', 'notification-ping-1', 'computer-data-glitch-1', 'game-over-voice', 'heartbeat-fast']
+PER_HOME = 24
+
+def build_index():
+    """Small search index for the home page (loaded on first search). Short keys keep it light."""
+    by_file = {m['file']: m for m in meta}
+    idx = {"cats": {c: CATS[c] for c in ORDER},
+           "s": [[m['name'], m['file'], m['cat'], m['dur'], m['mp3'], m['wav'],
+                  re.sub(r'[^a-z0-9 ]', ' ', DESC[m['file']].split('. ')[0].lower())] for m in meta]}
+    write('search-index.json', json.dumps(idx, ensure_ascii=False, separators=(',', ':')))
+
 def build_home():
     total = len(meta)
-    chips = '<button class="chip active" type="button" aria-pressed="true" data-filter="all">All <span>' + str(total) + '</span></button>' + ''.join(
-        f'<button class="chip" type="button" aria-pressed="false" data-filter="{c}">{esc(CATS[c])} <span>{len(by_cat[c])}</span></button>' for c in ORDER)
-    tiles = ''.join(f'<a class="tile" href="{c}/"><span class="ti">{cat_icon(c, 26)}</span><strong>{esc(CATS[c])}</strong><em>{len(by_cat[c])} sounds</em></a>' for c in ORDER)
+    by_file = {m['file']: m for m in meta}
+    missing = [p for p in POPULAR if p not in by_file]
+    assert not missing, missing
+    popular = [by_file[p] for p in POPULAR][:PER_HOME]
+    tiles = ''.join(f'<a class="tile" href="{c}/"><span class="ti">{cat_icon(c, 26)}</span><strong>{esc(CATS[c])}</strong><em>View all {len(by_cat[c])} &rarr;</em></a>' for c in ORDER)
     rows = ''.join(f'<tr><td><a href="{c}/">{esc(CATS[c])}</a></td><td>{len(by_cat[c])}</td><td>{esc(CAT_INFO[c]["short"])}</td></tr>' for c in ORDER)
-    quick = ''.join(f'<a href="?q={w}#sounds" data-q="{w}">{w}</a>' for w in ('whoosh', 'scratch', 'laugh', 'impact', 'shutter', 'coin'))
+    quick = ''.join(f'<a href="?q={w.replace(" ", "+")}#sounds" data-q="{w}">{w}</a>' for w in ('boing', 'air horn', 'applause', 'whoosh', 'laugh', 'fart', 'scream', 'boom'))
     hero = f'''<p class="eyebrow"><span class="dot" aria-hidden="true"></span>{total} CC0 sounds &middot; MP3 + WAV &middot; no sign-up</p>
  <h1>Free Sound Effects <span class="hl">Download</span></h1>
- <p class="lead">{total} hand-picked, editor-ready sound effects &mdash; whooshes, impacts, risers, meme &amp; cartoon sounds, camera shutters, clicks, glitches and more. CC0 public domain: free for YouTube, TikTok, Reels, games and client work. One click, no sign-up, MP3 and WAV.</p>
+ <p class="lead">{total} editor-ready sound effects in {len(ORDER)} categories: meme-style funny sounds, laughs, whooshes, impacts, booms, horror, retro 8-bit, animals and more. CC0, free for YouTube, TikTok, Reels and client work. No sign-up, MP3 and WAV.</p>
  <form class="search" role="search" action="./#sounds" method="get">
   <label class="sr" for="q">Search sound effects</label>
   <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M16.5 16.5L21 21" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
-  <input id="q" name="q" type="search" placeholder="Search {total} sounds&hellip;" autocomplete="off">
+  <input id="q" name="q" type="search" placeholder="Search all {total} sounds&hellip;" autocomplete="off">
   <button type="submit">Search</button>
  </form>
  <p class="quick"><span>Popular:</span>{quick}</p>'''
     body = f'''
 {band(hero, 'home', True)}
 <div class="wrap">
-<section class="cats" aria-labelledby="cats-h"><h2 id="cats-h">Browse sound effect categories</h2><div class="tiles">{tiles}</div></section>
 <section class="sounds" id="sounds" aria-labelledby="sounds-h">
- <div class="sec-head"><h2 id="sounds-h">All sound effects</h2><p class="count" aria-live="polite"><span id="shown">{total}</span> sounds shown</p></div>
- <div class="chips" role="toolbar" aria-label="Filter by category">{chips}</div>
-{grid(meta, '', True, True)}
-<p class="empty" hidden>No sounds match your search. Try another word, such as &ldquo;hit&rdquo; or &ldquo;click&rdquo;.</p>
+ <div class="sec-head"><h2 id="sounds-h">Popular sound effects</h2><p class="count" aria-live="polite" id="count">{len(popular)} of {total} sounds &middot; search to see all</p></div>
+ <div id="pop">{grid(popular, '', True, False)}</div>
+ <div id="results" hidden></div>
+ <p class="more-res" hidden><button class="btn ghost" type="button" id="more">Show more results</button></p>
+ <p class="empty" hidden>No sounds match your search. Try another word, such as &ldquo;hit&rdquo;, &ldquo;laugh&rdquo; or &ldquo;click&rdquo;, or browse a category below.</p>
 </section>
+{ad("incontent", "in-content (300x250 / native banner)")}
+<section class="cats" aria-labelledby="cats-h"><h2 id="cats-h">Browse all {total} sounds by category</h2><div class="tiles">{tiles}</div></section>
 
 <article class="guide prose">
 <h2>How to use free sound effects in your videos</h2>
@@ -257,7 +289,7 @@ def build_home():
 <thead><tr><th>Format</th><th>Quality</th><th>Typical size</th><th>Best for</th></tr></thead>
 <tbody>
 <tr><td>MP3</td><td>320 kbps, 48 kHz</td><td>10&ndash;300 KB</td><td>CapCut, VN, InShot, quick edits, mobile</td></tr>
-<tr><td>WAV</td><td>48 kHz, 24-bit, uncompressed</td><td>30 KB&ndash;1.2 MB</td><td>Premiere Pro, DaVinci Resolve, Final Cut, further processing</td></tr>
+<tr><td>WAV</td><td>48 kHz, 24-bit, uncompressed</td><td>10 KB&ndash;2 MB</td><td>Premiere Pro, DaVinci Resolve, Final Cut, further processing</td></tr>
 </tbody>
 </table>
 <p>Both versions come from the same edit, so they sound the same. If you are not sure, take the MP3: it is small, plays everywhere and the difference is inaudible on phone speakers.</p>
@@ -284,7 +316,7 @@ def build_home():
 <p>Each category page has a <strong>Download whole category as ZIP</strong> button. The ZIP contains every sound of that category in both MP3 and WAV, plus a licence file, so you can keep a tidy SFX folder for your projects. Unzip it once and drag the folder into your editor&rsquo;s media library.</p>
 
 <h3>Where do these sounds come from?</h3>
-<p>We only use sources that clearly release their work into the public domain: the <a href="https://bigsoundbank.com/" rel="noopener">BigSoundBank</a> library recorded by sound designer Joseph Sardin, the CC0 audio packs from <a href="https://kenney.nl/" rel="noopener">Kenney.nl</a>, and CC0 uploads on <a href="https://opengameart.org/" rel="noopener">OpenGameArt</a>. We do not use packs whose licence forbids redistribution, and we do not use AI-generated or code-synthesised sounds. The exact source, author and licence of every single file is listed on the <a href="license/">License page</a>.</p>
+<p>We only use sources that clearly release their work into the public domain: the <a href="https://bigsoundbank.com/" rel="noopener">BigSoundBank</a> library recorded by sound designer Joseph Sardin (most of the real-world recordings here), the CC0 audio and voiceover packs from <a href="https://kenney.nl/" rel="noopener">Kenney.nl</a>, and CC0 uploads on <a href="https://opengameart.org/" rel="noopener">OpenGameArt</a> such as Juhani Junkala&rsquo;s 8-bit collection and qubodup&rsquo;s bamboo swooshes. We do not copy viral meme clips from TV, films or apps, because those are copyrighted; our meme-style sounds are original CC0 recordings that do the same job. We do not use packs whose licence forbids redistribution, and we do not use AI-generated or code-synthesised sounds. The exact source, author and licence of every single file is listed on the <a href="license/">License page</a>.</p>
 </article>
 
 <section class="faqsec prose"><h2>Frequently asked questions</h2>{faq_html(FAQ)}</section>
@@ -309,7 +341,7 @@ def build_cats():
     for c in ORDER:
         info = dict(CAT_INFO[c]); info.update(SEO[c]); items = by_cat[c]; n = len(items)
         zipname = f'{c}-sfx-pack.zip'
-        zsize = os.path.getsize(os.path.join(OUT, 'zips', zipname))
+        zsize = os.path.getsize(os.path.join(ZIP_DIR, zipname))
         paras = ''.join(f'<p>{esc(p)}</p>' for p in info['intro'].split('\n')) + f'<p>{esc(info["extra"])}</p>'
         pack = ', '.join(f'<a href="../sound/{m["file"]}/">{esc(m["name"])}</a> ({dur(m["dur"])})' for m in items)
         paras += f'<h3>What is in this {esc(info["noun"])} pack</h3><p>{n} sounds: {pack}. Each one has its own page with a preview player, technical details and the original source.</p>'
@@ -320,7 +352,7 @@ def build_cats():
  <h1>{esc(info['h1'])}</h1>
  <p class="lead">{n} free {esc(info['noun'])} sound effects. CC0 public domain, free for commercial use, no attribution needed. One-click MP3 or WAV download.</p>
  </div></div>
- <a class="btn zip" href="../zips/{zipname}" download="{zipname}">Download whole category as ZIP <small>{n} sounds &middot; MP3 + WAV &middot; {kb(zsize)}</small></a>''', 'cat', True)}
+ <a class="btn zip" href="{ZIP_URL}{zipname}" download="{zipname}" rel="nofollow">Download whole category as ZIP <small>{n} sounds &middot; MP3 + WAV &middot; {kb(zsize)}</small></a>''', 'cat', True)}
 <div class="wrap">
 <section class="sounds" aria-labelledby="sounds-h"><div class="sec-head"><h2 id="sounds-h">All {n} {esc(info['noun'])} sound effects</h2></div>
 {grid(items, '../', False, True)}
@@ -395,7 +427,7 @@ def build_sounds():
  <p>Download the MP3 for CapCut, VN, InShot and other phone editors, or the WAV for Premiere Pro, DaVinci Resolve and Final Cut Pro. Drop it on an audio track under the moment it belongs to; the sound starts on the first frame, so it lines up exactly where you place it. Keep it a few decibels below your voice track and trim or fade the end if you only need part of it.</p>
  <h2>Source &amp; licence</h2>
  <p>Original recording: <a href="{esc(src['url'])}" rel="noopener nofollow">{esc(src['title'])}</a> by {esc(src['author'])}, released under CC0 / public domain. This edited version (trimmed, faded and levelled) is also CC0. Credit is optional; see the <a href="{rel}license/">License page</a> for all sources.</p>
- <p><a class="btn ghost dl inline" href="{rel}zips/{zipname}" download="{zipname}">Download all {len(items)} {esc(info['noun'])} sounds (ZIP)</a></p>
+ <p><a class="btn ghost dl inline" href="{ZIP_URL}{zipname}" download="{zipname}" rel="nofollow">Download all {len(items)} {esc(info['noun'])} sounds (ZIP)</a></p>
 </section>
 <section class="related"><h2>Related {esc(info['noun'])} sound effects</h2>
 {grid(related, rel, False, False)}
@@ -427,7 +459,7 @@ def build_static():
     total = len(meta)
     simple('about', 'About', f'About {SITE_NAME}: a small, fast library of {total} free CC0 sound effects for video editors and creators.', f'''
 <h1>About {SITE_NAME}</h1>
-<p>{SITE_NAME} is a small, fast library of free sound effects for video editors, short-form creators, streamers and indie game developers. We focus on the sounds editors actually use every day &mdash; whooshes, impacts, risers, pops, camera shutters, UI clicks, notifications, money sounds and glitches &mdash; and make each one ready to drop on a timeline.</p>
+<p>{SITE_NAME} is a small, fast library of free sound effects for video editors, short-form creators, streamers and indie game developers. We focus on the sounds editors actually use every day &mdash; funny and meme-style sounds, laughs and applause, human reactions, whooshes, impacts, booms, risers, pops, glitches, notifications, horror stingers, retro 8-bit effects, animals, horns and sirens, nature ambiences and more &mdash; and make each one ready to drop on a timeline.</p>
 <h2>What we do</h2>
 <ul><li>Collect sound effects only from sources that release them as <strong>CC0 / public domain</strong>.</li>
 <li>Choose realistic, punchy recordings and skip weak, noisy or unusable ones.</li>
@@ -436,7 +468,7 @@ def build_static():
 <h2>Who it is for</h2>
 <p>YouTubers, TikTok and Reels editors, podcasters, teachers, students, app makers and game developers who need clean sounds they can use commercially without worrying about licences.</p>
 <h2>Credits</h2>
-<p>The original recordings were made by Joseph Sardin (<a href="https://bigsoundbank.com/" rel="noopener">BigSoundBank</a>), <a href="https://kenney.nl/" rel="noopener">Kenney</a> and CC0 contributors on <a href="https://opengameart.org/" rel="noopener">OpenGameArt</a>. Thank you for giving your work to the public domain. Full per-file credits are on the <a href="../license/">License page</a>.</p>''')
+<p>The original recordings were made by Joseph Sardin (<a href="https://bigsoundbank.com/" rel="noopener">BigSoundBank</a>), <a href="https://kenney.nl/" rel="noopener">Kenney</a> and CC0 contributors on <a href="https://opengameart.org/" rel="noopener">OpenGameArt</a> (including Juhani Junkala, qubodup, artisticdude and pyranostudios). Thank you for giving your work to the public domain. Full per-file credits are on the <a href="../license/">License page</a>.</p>''')
 
     rows = ''.join(f'<tr><td>{esc(m["name"])}</td><td>{esc(CATS[m["cat"]])}</td><td><a href="{esc(SOURCES[m["file"]]["url"])}" rel="noopener nofollow">{esc(SOURCES[m["file"]]["title"])}</a></td><td>{esc(SOURCES[m["file"]]["author"])}</td><td>CC0 1.0</td></tr>' for m in meta)
     simple('license', 'License', 'All sound effects on this site are CC0 / public domain: free for personal and commercial use, no attribution required. Full source list.', f'''
@@ -517,14 +549,14 @@ def build_files():
             for ext in ('mp3', 'wav'):
                 shutil.copy2(os.path.join(AUDIO, c, f"{m['file']}.{ext}"), os.path.join(OUT, 'sounds', c, f"{m['file']}.{ext}"))
     # zips
-    os.makedirs(os.path.join(OUT, 'zips'), exist_ok=True)
+    os.makedirs(ZIP_DIR, exist_ok=True)
     lic = f"""{SITE_NAME} - {{cat}} pack
 All sounds: CC0 1.0 Universal (public domain). Free for commercial use, no attribution required.
 https://creativecommons.org/publicdomain/zero/1.0/
 Original sources and authors: see the License page of the site ({SITE_URL}/license/).
 """
     for c in ORDER:
-        zp = os.path.join(OUT, 'zips', f'{c}-sfx-pack.zip')
+        zp = os.path.join(ZIP_DIR, f'{c}-sfx-pack.zip')
         with zipfile.ZipFile(zp, 'w', zipfile.ZIP_DEFLATED) as z:
             def add(arc, data):  # fixed timestamp -> identical ZIP bytes on every rebuild (no git churn)
                 zi = zipfile.ZipInfo(arc, date_time=(2026, 1, 1, 0, 0, 0)); zi.compress_type = zipfile.ZIP_DEFLATED
@@ -560,7 +592,7 @@ def main():
                 if f != 'ads-config.js': shutil.copy2(os.path.join(src, f), dst)
             continue
         shutil.copytree(src, dst, dirs_exist_ok=True)
-    build_files(); build_home(); build_cats(); build_sounds(); build_static(); build_seo()
+    build_files(); build_index(); build_home(); build_cats(); build_sounds(); build_static(); build_seo()
     print('built', len(meta), 'sounds into', os.path.abspath(OUT))
 
 if __name__ == '__main__':

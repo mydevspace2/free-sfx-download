@@ -191,3 +191,5 @@ main{padding-bottom:36px}
 }
 .card,.tile{contain:layout paint}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+.more-res{text-align:center;margin:14px 0 4px}
+.grid .card:nth-child(n+13){content-visibility:auto;contain-intrinsic-size:auto 150px}
