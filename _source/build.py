@@ -9,7 +9,8 @@ Every other link in the site is RELATIVE, so nothing else needs to change.
 """
 import os, json, shutil, zipfile, html, datetime, re, sys
 sys.path.insert(0, os.path.dirname(__file__))
-from content import CAT_INFO, FAQ
+from content import CAT_INFO, FAQ, SEO
+from sound_text import DESC
 from manifest import CATS
 
 SITE_URL  = os.environ.get('SFX_SITE_URL', 'https://mydevspace2.github.io/free-sfx-download')
@@ -17,7 +18,7 @@ BASE_PATH = os.environ.get('SFX_BASE_PATH', '/free-sfx-download/')
 CNAME     = os.environ.get('SFX_CNAME', '')
 SITE_NAME = 'Free SFX Download'
 UPDATED   = datetime.date.today().isoformat()
-ASSET_V   = UPDATED.replace('-', '')
+ASSET_V   = datetime.datetime.now().strftime('%Y%m%d%H%M')
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 AUDIO = os.path.join(HERE, '..', 'build_audio')
@@ -63,9 +64,17 @@ def page(rel, path, title, desc, body, extra_head='', ld=None, h_type='website',
 <meta property="og:description" content="{esc(desc)}">
 <meta property="og:url" content="{canon}">
 <meta property="og:image" content="{SITE_URL}/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{SITE_NAME} – free CC0 sound effects">
+<meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{esc(title)}">
+<meta name="twitter:description" content="{esc(desc)}">
+<meta name="twitter:image" content="{SITE_URL}/assets/og-image.png">
 <meta name="theme-color" content="#0f1115">
 <link rel="icon" href="{rel}assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="{rel}assets/logo-512.png">
 <script>(function(){{try{{var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;}}catch(e){{}}}})();</script>
 <link rel="stylesheet" href="{rel}assets/style.css?v={ASSET_V}">
 {extra_head}{lds}
@@ -108,12 +117,14 @@ def page(rel, path, title, desc, body, extra_head='', ld=None, h_type='website',
 
 def card(m, rel, show_cat=True):
     base = f"{rel}sounds/{m['cat']}/{m['file']}"
-    catlink = f'<a class="tag" href="{rel}{m["cat"]}/">{esc(CATS[m["cat"]])}</a>' if show_cat else f'<span class="tag">{esc(CATS[m["cat"]])}</span>'
+    catlink = f'<span class="tag">{esc(CATS[m["cat"]])}</span>'
     return f'''<article class="card" data-name="{esc(m['name'].lower())}" data-cat="{m['cat']}">
- <h3>{esc(m['name'])}</h3>
+ <h3><a href="{rel}sound/{m['file']}/">{esc(m['name'])}</a></h3>
  {catlink}
+ <div class="prog" aria-hidden="true"><span></span></div>
  <dl class="specs"><div><dt>Duration</dt><dd>{dur(m['dur'])}</dd></div><div><dt>Size</dt><dd>{kb(m['mp3'])}</dd></div><div><dt>Format</dt><dd>MP3 320k</dd></div></dl>
  <div class="actions">
+  <button class="play" type="button" data-src="{base}.mp3" aria-label="Play preview of {esc(m['name'])}" title="Play preview"><svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg><svg class="i-stop" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2" fill="currentColor"/></svg></button>
   <a class="btn" href="{base}.mp3" download="{m['file']}.mp3">{DL}Download MP3</a>
   <a class="btn ghost" href="{base}.wav" download="{m['file']}.wav" title="WAV 48 kHz 24-bit, {kb(m['wav'])}">WAV</a>
  </div>
@@ -220,7 +231,13 @@ def build_home():
 <section class="faqsec prose"><h2>Frequently asked questions</h2>{faq_html(FAQ)}</section>
 '''
     ld = [
-        {"@context": "https://schema.org", "@type": "WebSite", "name": SITE_NAME, "url": SITE_URL + '/'},
+        {"@context": "https://schema.org", "@type": "WebSite", "name": SITE_NAME, "url": SITE_URL + '/',
+         "potentialAction": {"@type": "SearchAction",
+                             "target": {"@type": "EntryPoint", "urlTemplate": SITE_URL + '/?q={search_term_string}'},
+                             "query-input": "required name=search_term_string"}},
+        {"@context": "https://schema.org", "@type": "Organization", "name": SITE_NAME, "url": SITE_URL + '/',
+         "logo": SITE_URL + '/assets/logo-512.png',
+         "sameAs": ["https://github.com/mydevspace2/free-sfx-download"]},
         faq_ld(FAQ),
     ]
     write('index.html', page('', '', f'Free Sound Effects Download – {total} CC0 SFX (MP3 & WAV)',
@@ -230,10 +247,12 @@ def build_home():
 # ---------------------------------------------------------------- categories
 def build_cats():
     for c in ORDER:
-        info = CAT_INFO[c]; items = by_cat[c]; n = len(items)
+        info = dict(CAT_INFO[c]); info.update(SEO[c]); items = by_cat[c]; n = len(items)
         zipname = f'{c}-sfx-pack.zip'
         zsize = os.path.getsize(os.path.join(OUT, 'zips', zipname))
-        paras = ''.join(f'<p>{esc(p)}</p>' for p in info['intro'].split('\n'))
+        paras = ''.join(f'<p>{esc(p)}</p>' for p in info['intro'].split('\n')) + f'<p>{esc(info["extra"])}</p>'
+        pack = ', '.join(f'<a href="../sound/{m["file"]}/">{esc(m["name"])}</a> ({dur(m["dur"])})' for m in items)
+        paras += f'<h3>What is in this {esc(info["noun"])} pack</h3><p>{n} sounds: {pack}. Each one has its own page with a preview player, technical details and the original source.</p>'
         others = ''.join(f'<a href="../{o}/">{esc(CATS[o])}</a>' for o in ORDER if o != c)
         body = f'''
 <nav class="crumbs" aria-label="Breadcrumb"><a href="../">Home</a> &rsaquo; <span>{esc(CATS[c])}</span></nav>
@@ -249,12 +268,89 @@ def build_cats():
 '''
         ld = [crumbs_ld([('Home', ''), (CATS[c], f'{c}/')]),
               {"@context": "https://schema.org", "@type": "CollectionPage", "name": info['h1'], "url": f'{SITE_URL}/{c}/',
-               "hasPart": [{"@type": "AudioObject", "name": m['name'], "encodingFormat": "audio/mpeg",
-                            "contentUrl": f"{SITE_URL}/sounds/{c}/{m['file']}.mp3", "duration": f"PT{m['dur']:.1f}S",
-                            "license": "https://creativecommons.org/publicdomain/zero/1.0/"} for m in items]}]
-        write(f'{c}/index.html', page('../', f'{c}/', f'{info["title"]} – {n} Free Downloads (CC0)',
+               "description": info['short'], "isPartOf": {"@type": "WebSite", "name": SITE_NAME, "url": SITE_URL + '/'}},
+              {"@context": "https://schema.org", "@type": "ItemList", "name": info['h1'], "numberOfItems": n,
+               "itemListElement": [{"@type": "ListItem", "position": i+1, "name": f"{m['name']} Sound Effect",
+                                    "url": f"{SITE_URL}/sound/{m['file']}/"} for i, m in enumerate(items)]}]
+        write(f'{c}/index.html', page('../', f'{c}/', info["title"],
               (lambda a: a if len(a)<=158 else f'{n} free {info["noun"]} sound effects. {info["short"]} CC0, free for commercial use.')(f'{n} free {info["noun"]} sound effects. {info["short"]} CC0, free for commercial use, MP3 & WAV download.'),
               body, ld=ld))
+
+# ---------------------------------------------------------------- sound pages
+CC0 = 'https://creativecommons.org/publicdomain/zero/1.0/'
+def iso_dur(d):
+    return f"PT{d:.2f}".rstrip('0').rstrip('.') + 'S'
+
+def sound_desc(m):
+    name, d = m['name'], dur(m['dur'])
+    sents = [x.strip() for x in DESC[m['file']].split('. ') if x.strip()]
+    use = sents[-1].rstrip('.') + '.'
+    for cand in (f"Free {name} sound effect ({d}). {use} CC0, MP3 & WAV download.",
+                 f"Free {name} sound effect ({d}). {use}",
+                 f"Download the free {name} sound effect ({d}) in MP3 & WAV. CC0 public domain, no attribution needed."):
+        if len(cand) <= 158: return cand
+    return cand[:155].rsplit(' ', 1)[0] + '…'
+
+def build_sounds():
+    for c in ORDER:
+        items = by_cat[c]; info = dict(CAT_INFO[c]); info.update(SEO[c])
+        zipname = f'{c}-sfx-pack.zip'
+        for idx, m in enumerate(items):
+            rel = '../../'; slug = m['file']; name = m['name']
+            src = SOURCES[slug]
+            base = f"{rel}sounds/{c}/{slug}"
+            others = items[idx+1:] + items[:idx]
+            related = others[:6]
+            ch = 'Mono' if m.get('ch', 1) == 1 else 'Stereo'
+            sents = DESC[slug]
+            body = f'''
+<nav class="crumbs" aria-label="Breadcrumb"><a href="{rel}">Home</a> &rsaquo; <a href="{rel}{c}/">{esc(CATS[c])}</a> &rsaquo; <span>{esc(name)}</span></nav>
+<div class="sound-layout">
+<section class="hero small sound-hero">
+ <h1>{esc(name)} Sound Effect</h1>
+ <p class="lead">{esc(sents)}</p>
+ <article class="card single" data-name="{esc(name.lower())}" data-cat="{c}">
+  <div class="prog" aria-hidden="true"><span></span></div>
+  <div class="actions">
+   <button class="play" type="button" data-src="{base}.mp3" aria-label="Play preview of {esc(name)}" title="Play preview"><svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg><svg class="i-stop" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2" fill="currentColor"/></svg></button>
+   <a class="btn" href="{base}.mp3" download="{slug}.mp3">{DL}Download MP3 <small>({kb(m['mp3'])})</small></a>
+   <a class="btn ghost" href="{base}.wav" download="{slug}.wav">{DL}WAV <small>({kb(m['wav'])})</small></a>
+  </div>
+ </article>
+</section>
+<section class="prose sound-info">
+ <h2>Sound details</h2>
+ <table class="spec-table"><tbody>
+  <tr><th scope="row">Duration</th><td>{dur(m['dur'])}</td></tr>
+  <tr><th scope="row">Category</th><td><a href="{rel}{c}/">{esc(CATS[c])}</a></td></tr>
+  <tr><th scope="row">MP3</th><td>320 kbps, 48 kHz, {ch.lower()}, {kb(m['mp3'])}</td></tr>
+  <tr><th scope="row">WAV</th><td>48 kHz, 24-bit, {ch.lower()}, {kb(m['wav'])}</td></tr>
+  <tr><th scope="row">Processing</th><td>Silence trimmed, short fades, levelled (about -14 LUFS target), true peak &le; -1 dBTP</td></tr>
+  <tr><th scope="row">Licence</th><td><a href="{CC0}" rel="noopener">CC0 1.0</a> &ndash; free for commercial use, no attribution</td></tr>
+ </tbody></table>
+ <h2>How to use this {esc(name.lower())} sound in video editing</h2>
+ <p>Download the MP3 for CapCut, VN, InShot and other phone editors, or the WAV for Premiere Pro, DaVinci Resolve and Final Cut Pro. Drop it on an audio track under the moment it belongs to; the sound starts on the first frame, so it lines up exactly where you place it. Keep it a few decibels below your voice track and trim or fade the end if you only need part of it.</p>
+ <h2>Source &amp; licence</h2>
+ <p>Original recording: <a href="{esc(src['url'])}" rel="noopener nofollow">{esc(src['title'])}</a> by {esc(src['author'])}, released under CC0 / public domain. This edited version (trimmed, faded and levelled) is also CC0. Credit is optional; see the <a href="{rel}license/">License page</a> for all sources.</p>
+ <p><a class="btn ghost inline" href="{rel}zips/{zipname}" download="{zipname}">{DL}Download all {len(items)} {esc(info['noun'])} sounds (ZIP)</a></p>
+</section>
+</div>
+<section class="related"><h2>Related {esc(info['noun'])} sound effects</h2>
+{grid(related, rel, False, False)}
+<p class="more"><a href="{rel}{c}/">See all {len(items)} {esc(CATS[c].lower())} sound effects &rarr;</a></p></section>
+'''
+            url = f'{SITE_URL}/sound/{slug}/'
+            ld = [crumbs_ld([('Home', ''), (CATS[c], f'{c}/'), (name, f'sound/{slug}/')]),
+                  {"@context": "https://schema.org", "@type": "AudioObject", "name": f"{name} Sound Effect",
+                   "description": DESC[slug], "url": url,
+                   "contentUrl": f"{SITE_URL}/sounds/{c}/{slug}.mp3", "encodingFormat": "audio/mpeg",
+                   "duration": iso_dur(m['dur']), "contentSize": kb(m['mp3']),
+                   "license": CC0, "isAccessibleForFree": True, "genre": CATS[c],
+                   "creditText": src['author'], "copyrightNotice": "CC0 1.0 / public domain",
+                   "associatedMedia": {"@type": "AudioObject", "contentUrl": f"{SITE_URL}/sounds/{c}/{slug}.wav", "encodingFormat": "audio/wav"},
+                   "isBasedOn": src['url']}]
+            write(f'sound/{slug}/index.html', page(rel, f'sound/{slug}/', f'{name} Sound Effect – Free MP3 & WAV Download',
+                  sound_desc(m), body, ld=ld))
 
 # ---------------------------------------------------------------- static pages
 def simple(slug, title, desc, inner):
@@ -372,7 +468,7 @@ Original sources and authors: see the License page of the site ({SITE_URL}/licen
             # deterministic-ish timestamps not required
 
 def build_seo():
-    urls = [''] + [f'{c}/' for c in ORDER] + ['about/', 'license/', 'privacy/', 'terms/', 'contact/']
+    urls = [''] + [f'{c}/' for c in ORDER] + [f"sound/{m['file']}/" for m in meta] + ['about/', 'license/', 'privacy/', 'terms/', 'contact/']
     sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + ''.join(
         f'  <url><loc>{SITE_URL}/{u}</loc><lastmod>{UPDATED}</lastmod></url>\n' for u in urls) + '</urlset>\n'
     write('sitemap.xml', sm)
@@ -393,7 +489,7 @@ def main():
                 if f != 'ads-config.js': shutil.copy2(os.path.join(src, f), dst)
             continue
         shutil.copytree(src, dst, dirs_exist_ok=True)
-    build_files(); build_home(); build_cats(); build_static(); build_seo()
+    build_files(); build_home(); build_cats(); build_sounds(); build_static(); build_seo()
     print('built', len(meta), 'sounds into', os.path.abspath(OUT))
 
 if __name__ == '__main__':

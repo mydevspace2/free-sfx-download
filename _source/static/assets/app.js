@@ -1,4 +1,17 @@
 (function(){
+  // preview player: one sound at a time
+  var a=new Audio(),cur=null;a.preload='none';
+  function stop(){if(cur){cur.classList.remove('playing');var s=cur.querySelector('.prog span');if(s)s.style.width='0';}cur=null;a.pause();}
+  document.addEventListener('click',function(e){
+    var b=e.target.closest&&e.target.closest('.play');if(!b)return;
+    var c=b.closest('.card');if(cur===c){stop();return;}
+    stop();cur=c;c.classList.add('playing');a.src=b.dataset.src;a.currentTime=0;
+    var pr=a.play();if(pr&&pr.catch)pr.catch(function(){stop();});
+  });
+  a.addEventListener('timeupdate',function(){if(cur&&a.duration){var s=cur.querySelector('.prog span');if(s)s.style.width=(a.currentTime/a.duration*100)+'%';}});
+  a.addEventListener('ended',stop);
+})();
+(function(){
   // dark mode toggle
   var b=document.querySelector('[data-theme-toggle]');
   if(b)b.addEventListener('click',function(){
