@@ -78,7 +78,6 @@ S=[
 ('ui-clicks','Trackpad Click',B+'1738.flac',{}),
 ('ui-clicks','Mouse Double Click',B+'0029.wav',dict(seg=0)),
 ('ui-clicks','UI Click Soft',KI+'click_001.ogg',{}),
-('ui-clicks','UI Select',KI+'select_001.ogg',{}),
 ('ui-clicks','UI Switch On',KI+'switch_001.ogg',{}),
 ('ui-clicks','UI Switch Off',KI+'switch_002.ogg',{}),
 ('ui-clicks','UI Toggle',KI+'toggle_001.ogg',{}),
