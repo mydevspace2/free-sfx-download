@@ -20,7 +20,7 @@ All other links are relative. Then in repo Settings → Pages → Custom domain,
 Every file's original URL, author and licence: `SOURCES.md` and the site's License page.
 
 ## SEO structure
-- Home `/`, 12 category pages `/<category>/`, one page per sound `/sound/<slug>/` (118), plus About / License / Privacy / Terms / Contact.
+- Home `/`, 12 category pages `/<category>/`, one page per sound `/sound/<slug>/` (151), plus About / License / Privacy / Terms / Contact.
 - Every page: unique title + meta description, canonical, Open Graph + Twitter card. JSON-LD: WebSite + SearchAction (`/?q=`) + Organization + FAQPage on home; CollectionPage + ItemList + BreadcrumbList on categories; AudioObject + BreadcrumbList on sound pages.
 - `sitemap.xml` lists every page with `lastmod`; `robots.txt` points to it. Per-sound texts live in `_source/sound_text.py`, category SEO texts in `_source/content.py` (`SEO`).
 
