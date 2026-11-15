@@ -134,7 +134,7 @@ def page(rel, path, title, desc, body, extra_head='', ld=None, h_type='website',
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-header">
  <div class="wrap hdr">
-  <a class="brand" href="{rel}" aria-label="{SITE_NAME} – home">{ICON}<span class="wm">FREE<b>SFX</b><small>download</small></span></a>
+  <a class="brand" href="{rel}">{ICON}<span class="wm">FREE<b><span class="sr">&nbsp;</span>SFX</b><small><span class="sr">&nbsp;</span>download</small></span></a>
   <nav class="topnav" aria-label="Main">
    <a href="{rel}#sounds">All sounds</a>
    <a href="{rel}license/">License</a>
@@ -160,7 +160,7 @@ def page(rel, path, title, desc, body, extra_head='', ld=None, h_type='website',
 <footer class="site-footer">
  <div class="wrap foot">
   <div class="foot-about">
-   <a class="brand" href="{rel}" aria-label="{SITE_NAME} – home">{ICON}<span class="wm">FREE<b>SFX</b><small>download</small></span></a>
+   <a class="brand" href="{rel}">{ICON}<span class="wm">FREE<b><span class="sr">&nbsp;</span>SFX</b><small><span class="sr">&nbsp;</span>download</small></span></a>
    <p>Free CC0 sound effects for video editors, creators and game developers. MP3 &amp; WAV, one-click download, no sign-up.</p>
   </div>
   <nav class="foot-col" aria-label="Sound categories"><h2>Categories</h2><div class="foot-cats">{foot_cats}</div></nav>

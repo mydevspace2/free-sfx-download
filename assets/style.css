@@ -189,4 +189,5 @@ main{padding-bottom:36px}
 .card.single{grid-template-columns:56px minmax(0,1fr);padding:14px}.card.single .play{width:56px;height:56px}
 .card.single .actions .btn{flex:1 1 100%}
 }
+.card,.tile{contain:layout paint}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
