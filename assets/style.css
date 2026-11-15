@@ -80,3 +80,9 @@ h3{font-size:1.15rem;margin:24px 0 8px}
 .copy{color:var(--muted);font-size:.82rem;margin-top:14px}
 @media (max-width:560px){.grid{grid-template-columns:1fr}.hero{padding-top:22px}.btn.big{width:100%}}
 .btn svg{flex:none;width:18px;height:18px}
+.play{flex:0 0 auto;width:42px;height:42px;border-radius:50%;border:1px solid var(--accent);background:transparent;color:var(--accent);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
+.play svg{width:20px;height:20px}.play .i-stop{display:none}
+.play:hover{background:var(--accent);color:var(--accent-ink)}
+.card.playing .play{background:var(--accent);color:var(--accent-ink)}.card.playing .i-play{display:none}.card.playing .i-stop{display:block}
+.actions{align-items:center}
+.prog{height:4px;border-radius:4px;background:var(--line);overflow:hidden}.prog span{display:block;height:100%;width:0;background:var(--accent)}
