@@ -36,19 +36,66 @@ def dur(s):
     return f'{s:.1f} s' if s < 10 else f'{s:.0f} s'
 
 # ---------------------------------------------------------------- layout
-ICON = '<svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true"><rect width="32" height="32" rx="8" fill="currentColor"/><path d="M6 16h2M10 11v10M14 7v18M18 12v8M22 9v14M26 15v2" stroke="var(--logo-ink)" stroke-width="2.4" stroke-linecap="round"/></svg>'
-DL = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M5 21h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+# Brand mark: round "speaker cone" with equalizer bars (distinct from the square logos of the other sites)
+ICON = '<svg class="mark" viewBox="0 0 32 32" width="34" height="34" aria-hidden="true"><circle cx="16" cy="16" r="16" fill="#c8ff2e"/><path d="M8 16v0M11.5 12v8M15 8.5v15M18.5 11v10M22 13.5v5M25 15.5v1" stroke="#0a0a0f" stroke-width="2.4" stroke-linecap="round"/></svg>'
+DL = ''  # download icon is drawn in CSS (.btn.dl::before) to keep the DOM small
+
+CAT_ICONS = {  # 24x24 stroke icons, one per category
+ 'whooshes-transitions': '<path d="M3 8h10a3 3 0 1 0-3-3M3 12h15a3 3 0 1 1-3 3M3 16h7"/>',
+ 'impacts-hits': '<path d="M12 2.5l1.8 5.4 5.3-2.3-2.4 5.1 4.8 1.6-4.8 1.6 2.4 5.1-5.3-2.3L12 22l-1.8-5.3-5.3 2.3 2.4-5.1-4.8-1.6 4.8-1.6-2.4-5.1 5.3 2.3z"/>',
+ 'booms-explosions': '<circle cx="10.5" cy="14" r="6.5"/><path d="M15.5 9l2.5-2.5M19 3.5v1.5M22 7h-1.5M20.8 4.2l-1 1"/>',
+ 'risers-sweeps': '<path d="M3 18l6-6 4 4 8-8M15 8h6v6"/>',
+ 'pops': '<circle cx="9" cy="14" r="5"/><circle cx="17.5" cy="7" r="3"/><path d="M19 15.5v.01M14 21v.01"/>',
+ 'camera-shutters': '<path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/>',
+ 'ui-clicks': '<path d="M6 3l12 7.5-5.2 1.6L10.5 17z"/><path d="M13 12.5l4.5 6"/>',
+ 'notifications-alerts': '<path d="M6 16v-5a6 6 0 0 1 12 0v5l2 2H4zM10 21h4"/>',
+ 'money-coins': '<circle cx="12" cy="12" r="8.5"/><path d="M12 6.5v11M14.5 9.2h-3.2a1.6 1.6 0 0 0 0 3.2h1.4a1.6 1.6 0 0 1 0 3.2H9.5"/>',
+ 'glitches-sci-fi': '<path d="M3 7h7v4h5V7h6M3 15h4v3h9v-3h5"/>',
+ 'cartoon-funny': '<circle cx="12" cy="12" r="9"/><path d="M8.5 14.5a4.5 4.5 0 0 0 7 0M9 9.5v.5M15 9.5v.5"/>',
+ 'typing-paper': '<rect x="2.5" y="6" width="19" height="12" rx="2"/><path d="M6.5 10h.01M10 10h.01M13.5 10h.01M17 10h.01M7.5 14h9"/>',
+}
+def cat_icon(c, size=24):
+    return f'<svg class="ci" viewBox="0 0 24 24" width="{size}" height="{size}" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">{CAT_ICONS[c]}</svg>'
+
+def _wave_paths(n=96, w=1200, h=150, seed=7):
+    import math, random
+    r = random.Random(seed); cy = h/2; step = w/n; a = []; b = []
+    for i in range(n):
+        env = 0.25 + 0.75*abs(math.sin(i/n*math.pi*2.3)) * (0.55 + 0.45*math.sin(i*0.37))
+        hh = max(6, min(h-8, (env*0.8 + r.random()*0.35) * h*0.78))
+        seg = f'M{i*step+step/2:.0f} {cy-hh/2:.0f}v{hh:.0f}'
+        (a if i < n*0.38 else b).append(seg)
+    return ''.join(a), ''.join(b)
+_WA, _WB = _wave_paths()
+WAVE = f'<svg class="wave" viewBox="0 0 1200 150" preserveAspectRatio="none" aria-hidden="true"><path d="{_WB}" stroke="currentColor" stroke-opacity=".22" stroke-width="5" stroke-linecap="round"/><path d="{_WA}" stroke="#c8ff2e" stroke-width="5" stroke-linecap="round"/><path d="M457 4v142" stroke="#fff" stroke-width="2"/></svg>'
+
+def band(inner, cls='', wave=False):
+    return f'<section class="band {cls}"><div class="wrap band-in">{inner}</div>{WAVE if wave else ""}</section>'
+
+def crumbs(trail):
+    """trail: list of (name, href or None)"""
+    parts = [f'<a href="{h}">{esc(n)}</a>' if h is not None else f'<span aria-current="page">{esc(n)}</span>' for n, h in trail]
+    return '<nav class="crumbs" aria-label="Breadcrumb">' + '<i aria-hidden="true">/</i>'.join(parts) + '</nav>'
 
 def ad(slot, label):
     # Empty container; filled by assets/ads.js from ads/ads-config.js. Collapses when empty.
     return f'\n<!-- ADSTERRA: {label} (slot "{slot}") - code goes in ads/ads-config.js -->\n<div class="ad-slot" data-ad-slot="{slot}" aria-label="Advertisement"></div>\n'
 
+_CSS = None
+def css():
+    global _CSS
+    if _CSS is None:
+        _CSS = open(os.path.join(HERE, 'static', 'assets', 'style.css'), encoding='utf-8').read().strip()
+    return _CSS
+
 def page(rel, path, title, desc, body, extra_head='', ld=None, h_type='website', noindex=False):
     """rel = relative prefix to site root ('' or '../'); path = page path from root ('' for home, 'x/' for folders)."""
     canon = f'{SITE_URL}/{path}'
-    nav = ''.join(f'<a href="{rel}{c}/">{esc(CATS[c])}</a>' for c in ORDER)
+    panel = ''.join(f'<a href="{rel}{c}/">{cat_icon(c, 20)}<span>{esc(CATS[c])}</span><em>{len(by_cat[c])}</em></a>' for c in ORDER)
+    foot_cats = ''.join(f'<a href="{rel}{c}/">{esc(CATS[c])}</a>' for c in ORDER)
     lds = ''.join(f'<script type="application/ld+json">{json.dumps(x, ensure_ascii=False)}</script>' for x in (ld or []))
     robots = '<meta name="robots" content="noindex">' if noindex else '<meta name="robots" content="index,follow,max-image-preview:large">'
+    font = f"@font-face{{font-family:'Space Grotesk';font-style:normal;font-weight:500 700;font-display:swap;src:url({rel}assets/space-grotesk.woff2) format('woff2')}}"
     return f'''<!doctype html>
 <html lang="en">
 <head>
@@ -72,11 +119,12 @@ def page(rel, path, title, desc, body, extra_head='', ld=None, h_type='website',
 <meta name="twitter:title" content="{esc(title)}">
 <meta name="twitter:description" content="{esc(desc)}">
 <meta name="twitter:image" content="{SITE_URL}/assets/og-image.png">
-<meta name="theme-color" content="#0f1115">
+<meta name="theme-color" content="#0a0a0f">
 <link rel="icon" href="{rel}assets/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="{rel}assets/logo-512.png">
+<link rel="preload" href="{rel}assets/space-grotesk.woff2" as="font" type="font/woff2" crossorigin>
 <script>(function(){{try{{var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;}}catch(e){{}}}})();</script>
-<link rel="stylesheet" href="{rel}assets/style.css?v={ASSET_V}">
+<style>{font}{css()}</style>
 {extra_head}{lds}
 <!-- ADSTERRA include point: ads/ads-config.js (slot codes) + assets/ads.js (loader). Nothing else to edit. -->
 <script src="{rel}ads/ads-config.js?v={ASSET_V}" defer></script>
@@ -86,27 +134,39 @@ def page(rel, path, title, desc, body, extra_head='', ld=None, h_type='website',
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-header">
  <div class="wrap hdr">
-  <a class="brand" href="{rel}">{ICON}<span>{SITE_NAME}</span></a>
+  <a class="brand" href="{rel}" aria-label="{SITE_NAME} – home">{ICON}<span class="wm">FREE<b>SFX</b><small>download</small></span></a>
+  <nav class="topnav" aria-label="Main">
+   <a href="{rel}#sounds">All sounds</a>
+   <a href="{rel}license/">License</a>
+   <a href="{rel}about/">About</a>
+  </nav>
+  <button class="menu-btn" type="button" aria-expanded="false" aria-controls="navpanel" data-menu><span class="bars" aria-hidden="true"></span><span class="lbl">Categories</span></button>
   <button class="theme-btn" type="button" aria-label="Toggle dark mode" data-theme-toggle>
    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z" fill="currentColor"/></svg>
   </button>
  </div>
- <nav class="wrap catnav" aria-label="Categories">{nav}</nav>
+ <div class="navpanel" id="navpanel">
+  <div class="wrap">
+   <nav class="panelgrid" aria-label="Categories">{panel}</nav>
+   <nav class="panellinks" aria-label="Site"><a href="{rel}#sounds">All sounds</a><a href="{rel}license/">License</a><a href="{rel}about/">About</a><a href="{rel}contact/">Contact</a></nav>
+  </div>
+ </div>
 </header>
 <div class="wrap">{ad("header", "header banner (728x90 desktop / 320x50 mobile)")}</div>
-<main id="main" class="wrap">
+<main id="main">
 {body}
 </main>
 <div class="wrap">{ad("footer", "footer banner (728x90 / 300x250)")}</div>
 <footer class="site-footer">
  <div class="wrap foot">
-  <div>
-   <a class="brand small" href="{rel}">{ICON}<span>{SITE_NAME}</span></a>
+  <div class="foot-about">
+   <a class="brand" href="{rel}" aria-label="{SITE_NAME} – home">{ICON}<span class="wm">FREE<b>SFX</b><small>download</small></span></a>
    <p>Free CC0 sound effects for video editors, creators and game developers. MP3 &amp; WAV, one-click download, no sign-up.</p>
   </div>
-  <div class="foot-links">
+  <nav class="foot-col" aria-label="Sound categories"><h2>Categories</h2><div class="foot-cats">{foot_cats}</div></nav>
+  <nav class="foot-col" aria-label="Site pages"><h2>Site</h2><div class="foot-links">
    <a href="{rel}about/">About</a><a href="{rel}license/">License</a><a href="{rel}privacy/">Privacy Policy</a><a href="{rel}terms/">Terms of Use</a><a href="{rel}contact/">Contact</a>
-  </div>
+  </div></nav>
  </div>
  <div class="wrap copy">&copy; {datetime.date.today().year} {SITE_NAME}. Sounds are CC0 / public domain. Last updated {UPDATED}.</div>
 </footer>
@@ -117,17 +177,12 @@ def page(rel, path, title, desc, body, extra_head='', ld=None, h_type='website',
 
 def card(m, rel, show_cat=True):
     base = f"{rel}sounds/{m['cat']}/{m['file']}"
-    catlink = f'<span class="tag">{esc(CATS[m["cat"]])}</span>'
+    tag = f'<span class="tag">{esc(CATS[m["cat"]])}</span>' if show_cat else ''
     return f'''<article class="card" data-name="{esc(m['name'].lower())}" data-cat="{m['cat']}">
- <h3><a href="{rel}sound/{m['file']}/">{esc(m['name'])}</a></h3>
- {catlink}
+ <button class="play" type="button" data-src="{base}.mp3" aria-label="Play preview of {esc(m['name'])}" title="Play preview"></button>
+ <div class="ct"><h3><a href="{rel}sound/{m['file']}/">{esc(m['name'])}</a></h3><p class="meta">{tag}{dur(m['dur'])} &middot; {kb(m['mp3'])}</p></div>
  <div class="prog" aria-hidden="true"><span></span></div>
- <dl class="specs"><div><dt>Duration</dt><dd>{dur(m['dur'])}</dd></div><div><dt>Size</dt><dd>{kb(m['mp3'])}</dd></div><div><dt>Format</dt><dd>MP3 320k</dd></div></dl>
- <div class="actions">
-  <button class="play" type="button" data-src="{base}.mp3" aria-label="Play preview of {esc(m['name'])}" title="Play preview"><svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg><svg class="i-stop" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2" fill="currentColor"/></svg></button>
-  <a class="btn" href="{base}.mp3" download="{m['file']}.mp3">{DL}Download MP3</a>
-  <a class="btn ghost" href="{base}.wav" download="{m['file']}.wav" title="WAV 48 kHz 24-bit, {kb(m['wav'])}">WAV</a>
- </div>
+ <div class="actions"><a class="btn dl" href="{base}.mp3" download="{m['file']}.mp3">Download MP3</a><a class="btn ghost" href="{base}.wav" download="{m['file']}.wav" title="WAV 48 kHz 24-bit, {kb(m['wav'])}">WAV</a></div>
 </article>'''
 
 def grid(items, rel, show_cat=True, incontent=True):
@@ -157,27 +212,31 @@ def write(path, text):
 # ---------------------------------------------------------------- home
 def build_home():
     total = len(meta)
-    chips = '<button class="chip active" data-filter="all">All <span>' + str(total) + '</span></button>' + ''.join(
-        f'<button class="chip" data-filter="{c}">{esc(CATS[c])} <span>{len(by_cat[c])}</span></button>' for c in ORDER)
-    cat_cards = ''.join(f'''<a class="catcard" href="{c}/"><strong>{esc(CATS[c])}</strong><span>{esc(CAT_INFO[c]['short'])}</span><em>{len(by_cat[c])} sounds &rarr;</em></a>''' for c in ORDER)
+    chips = '<button class="chip active" type="button" aria-pressed="true" data-filter="all">All <span>' + str(total) + '</span></button>' + ''.join(
+        f'<button class="chip" type="button" aria-pressed="false" data-filter="{c}">{esc(CATS[c])} <span>{len(by_cat[c])}</span></button>' for c in ORDER)
+    tiles = ''.join(f'<a class="tile" href="{c}/"><span class="ti">{cat_icon(c, 26)}</span><strong>{esc(CATS[c])}</strong><em>{len(by_cat[c])} sounds</em></a>' for c in ORDER)
     rows = ''.join(f'<tr><td><a href="{c}/">{esc(CATS[c])}</a></td><td>{len(by_cat[c])}</td><td>{esc(CAT_INFO[c]["short"])}</td></tr>' for c in ORDER)
-    body = f'''
-<section class="hero">
- <h1>Free Sound Effects Download</h1>
- <p class="lead">{total} hand-picked, editor-ready sound effects &mdash; whooshes, impacts, risers, pops, camera shutters, clicks, glitches and more. CC0 public domain: free for YouTube, TikTok, Reels, games and client work. One click, no sign-up, MP3 and WAV.</p>
- <div class="search">
+    quick = ''.join(f'<a href="?q={w}#sounds" data-q="{w}">{w}</a>' for w in ('whoosh', 'scratch', 'laugh', 'impact', 'shutter', 'coin'))
+    hero = f'''<p class="eyebrow"><span class="dot" aria-hidden="true"></span>{total} CC0 sounds &middot; MP3 + WAV &middot; no sign-up</p>
+ <h1>Free Sound Effects <span class="hl">Download</span></h1>
+ <p class="lead">{total} hand-picked, editor-ready sound effects &mdash; whooshes, impacts, risers, meme &amp; cartoon sounds, camera shutters, clicks, glitches and more. CC0 public domain: free for YouTube, TikTok, Reels, games and client work. One click, no sign-up, MP3 and WAV.</p>
+ <form class="search" role="search" action="./#sounds" method="get">
   <label class="sr" for="q">Search sound effects</label>
-  <input id="q" type="search" placeholder="Search {total} sounds, e.g. whoosh, shutter, coin&hellip;" autocomplete="off">
- </div>
+  <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M16.5 16.5L21 21" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+  <input id="q" name="q" type="search" placeholder="Search {total} sounds&hellip;" autocomplete="off">
+  <button type="submit">Search</button>
+ </form>
+ <p class="quick"><span>Popular:</span>{quick}</p>'''
+    body = f'''
+{band(hero, 'home', True)}
+<div class="wrap">
+<section class="cats" aria-labelledby="cats-h"><h2 id="cats-h">Browse sound effect categories</h2><div class="tiles">{tiles}</div></section>
+<section class="sounds" id="sounds" aria-labelledby="sounds-h">
+ <div class="sec-head"><h2 id="sounds-h">All sound effects</h2><p class="count" aria-live="polite"><span id="shown">{total}</span> sounds shown</p></div>
  <div class="chips" role="toolbar" aria-label="Filter by category">{chips}</div>
- <p class="count" aria-live="polite"><span id="shown">{total}</span> sounds shown</p>
-</section>
-<section aria-label="All sound effects">
 {grid(meta, '', True, True)}
 <p class="empty" hidden>No sounds match your search. Try another word, such as &ldquo;hit&rdquo; or &ldquo;click&rdquo;.</p>
 </section>
-
-<section class="cats"><h2>Browse sound effect categories</h2><div class="catgrid">{cat_cards}</div></section>
 
 <article class="guide prose">
 <h2>How to use free sound effects in your videos</h2>
@@ -229,6 +288,7 @@ def build_home():
 </article>
 
 <section class="faqsec prose"><h2>Frequently asked questions</h2>{faq_html(FAQ)}</section>
+</div>
 '''
     ld = [
         {"@context": "https://schema.org", "@type": "WebSite", "name": SITE_NAME, "url": SITE_URL + '/',
@@ -253,18 +313,22 @@ def build_cats():
         paras = ''.join(f'<p>{esc(p)}</p>' for p in info['intro'].split('\n')) + f'<p>{esc(info["extra"])}</p>'
         pack = ', '.join(f'<a href="../sound/{m["file"]}/">{esc(m["name"])}</a> ({dur(m["dur"])})' for m in items)
         paras += f'<h3>What is in this {esc(info["noun"])} pack</h3><p>{n} sounds: {pack}. Each one has its own page with a preview player, technical details and the original source.</p>'
-        others = ''.join(f'<a href="../{o}/">{esc(CATS[o])}</a>' for o in ORDER if o != c)
+        others = ''.join(f'<a href="../{o}/">{cat_icon(o, 18)}{esc(CATS[o])}</a>' for o in ORDER if o != c)
         body = f'''
-<nav class="crumbs" aria-label="Breadcrumb"><a href="../">Home</a> &rsaquo; <span>{esc(CATS[c])}</span></nav>
-<section class="hero small">
+{band(f'''{crumbs([('Home', '../'), (CATS[c], None)])}
+ <div class="cat-head"><span class="ti big">{cat_icon(c, 34)}</span><div>
  <h1>{esc(info['h1'])}</h1>
  <p class="lead">{n} free {esc(info['noun'])} sound effects. CC0 public domain, free for commercial use, no attribution needed. One-click MP3 or WAV download.</p>
- <a class="btn big" href="../zips/{zipname}" download="{zipname}">{DL}Download whole category as ZIP <small>({n} sounds, MP3 + WAV, {kb(zsize)})</small></a>
-</section>
+ </div></div>
+ <a class="btn zip" href="../zips/{zipname}" download="{zipname}">Download whole category as ZIP <small>{n} sounds &middot; MP3 + WAV &middot; {kb(zsize)}</small></a>''', 'cat', True)}
+<div class="wrap">
+<section class="sounds" aria-labelledby="sounds-h"><div class="sec-head"><h2 id="sounds-h">All {n} {esc(info['noun'])} sound effects</h2></div>
 {grid(items, '../', False, True)}
+</section>
 <article class="prose catintro"><h2>About these {esc(info['noun'])} sound effects</h2>{paras}
 <p>All files are trimmed, faded and levelled (about -14 LUFS, peaks at -1 dBTP). See the <a href="../license/">License page</a> for the original source of each sound.</p></article>
 <section class="prose"><h2>More free sound effect categories</h2><div class="morecats">{others}</div></section>
+</div>
 '''
         ld = [crumbs_ld([('Home', ''), (CATS[c], f'{c}/')]),
               {"@context": "https://schema.org", "@type": "CollectionPage", "name": info['h1'], "url": f'{SITE_URL}/{c}/',
@@ -304,20 +368,19 @@ def build_sounds():
             ch = 'Mono' if m.get('ch', 1) == 1 else 'Stereo'
             sents = DESC[slug]
             body = f'''
-<nav class="crumbs" aria-label="Breadcrumb"><a href="{rel}">Home</a> &rsaquo; <a href="{rel}{c}/">{esc(CATS[c])}</a> &rsaquo; <span>{esc(name)}</span></nav>
-<div class="sound-layout">
-<section class="hero small sound-hero">
+{band(f'''{crumbs([('Home', rel), (CATS[c], f'{rel}{c}/'), (name, None)])}
  <h1>{esc(name)} Sound Effect</h1>
  <p class="lead">{esc(sents)}</p>
  <article class="card single" data-name="{esc(name.lower())}" data-cat="{c}">
+  <button class="play" type="button" data-src="{base}.mp3" aria-label="Play preview of {esc(name)}" title="Play preview"></button>
+  <div class="ct"><p class="meta"><span class="tag">{esc(CATS[c])}</span>{dur(m['dur'])} &middot; MP3 320k &middot; WAV 48k/24-bit</p></div>
   <div class="prog" aria-hidden="true"><span></span></div>
   <div class="actions">
-   <button class="play" type="button" data-src="{base}.mp3" aria-label="Play preview of {esc(name)}" title="Play preview"><svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg><svg class="i-stop" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2" fill="currentColor"/></svg></button>
-   <a class="btn" href="{base}.mp3" download="{slug}.mp3">{DL}Download MP3 <small>({kb(m['mp3'])})</small></a>
-   <a class="btn ghost" href="{base}.wav" download="{slug}.wav">{DL}WAV <small>({kb(m['wav'])})</small></a>
+   <a class="btn dl" href="{base}.mp3" download="{slug}.mp3">Download MP3 <small>({kb(m['mp3'])})</small></a>
+   <a class="btn ghost dl" href="{base}.wav" download="{slug}.wav">WAV <small>({kb(m['wav'])})</small></a>
   </div>
- </article>
-</section>
+ </article>''', 'snd')}
+<div class="wrap">
 <section class="prose sound-info">
  <h2>Sound details</h2>
  <table class="spec-table"><tbody>
@@ -332,12 +395,12 @@ def build_sounds():
  <p>Download the MP3 for CapCut, VN, InShot and other phone editors, or the WAV for Premiere Pro, DaVinci Resolve and Final Cut Pro. Drop it on an audio track under the moment it belongs to; the sound starts on the first frame, so it lines up exactly where you place it. Keep it a few decibels below your voice track and trim or fade the end if you only need part of it.</p>
  <h2>Source &amp; licence</h2>
  <p>Original recording: <a href="{esc(src['url'])}" rel="noopener nofollow">{esc(src['title'])}</a> by {esc(src['author'])}, released under CC0 / public domain. This edited version (trimmed, faded and levelled) is also CC0. Credit is optional; see the <a href="{rel}license/">License page</a> for all sources.</p>
- <p><a class="btn ghost inline" href="{rel}zips/{zipname}" download="{zipname}">{DL}Download all {len(items)} {esc(info['noun'])} sounds (ZIP)</a></p>
+ <p><a class="btn ghost dl inline" href="{rel}zips/{zipname}" download="{zipname}">Download all {len(items)} {esc(info['noun'])} sounds (ZIP)</a></p>
 </section>
-</div>
 <section class="related"><h2>Related {esc(info['noun'])} sound effects</h2>
 {grid(related, rel, False, False)}
 <p class="more"><a href="{rel}{c}/">See all {len(items)} {esc(CATS[c].lower())} sound effects &rarr;</a></p></section>
+</div>
 '''
             url = f'{SITE_URL}/sound/{slug}/'
             ld = [crumbs_ld([('Home', ''), (CATS[c], f'{c}/'), (name, f'sound/{slug}/')]),
@@ -354,7 +417,9 @@ def build_sounds():
 
 # ---------------------------------------------------------------- static pages
 def simple(slug, title, desc, inner):
-    body = f'<nav class="crumbs" aria-label="Breadcrumb"><a href="../">Home</a> &rsaquo; <span>{esc(title)}</span></nav><article class="prose page">{inner}</article>'
+    m = re.search(r'<h1>(.*?)</h1>', inner, re.S)
+    h1 = m.group(0); inner = (inner[:m.start()] + inner[m.end():]).strip()
+    body = band(f'{crumbs([("Home", "../"), (title, None)])}{h1}', 'info') + f'<div class="wrap"><article class="prose page">{inner}</article></div>'
     write(f'{slug}/index.html', page('../', f'{slug}/', f'{title} – {SITE_NAME}', desc, body,
           ld=[crumbs_ld([('Home', ''), (title, f'{slug}/')])]))
 
@@ -438,8 +503,8 @@ def build_static():
 
     # 404 uses BASE_PATH absolute links because GitHub serves it at any depth
     b = BASE_PATH
-    body404 = f'''<section class="hero small"><h1>Page not found</h1><p class="lead">That page or sound does not exist (any more). Try the home page search, or pick a category:</p>
-<p><a class="btn" href="{b}">Go to the home page</a></p><div class="morecats">{''.join(f'<a href="{b}{c}/">{esc(CATS[c])}</a>' for c in ORDER)}</div></section>'''
+    body404 = band(f'''<h1>Page not found</h1><p class="lead">That page or sound does not exist (any more). Try the home page search, or pick a category:</p>
+<p><a class="btn" href="{b}">Go to the home page</a></p><div class="morecats">{''.join(f'<a href="{b}{c}/">{cat_icon(c, 18)}{esc(CATS[c])}</a>' for c in ORDER)}</div>''', 'info nf', True)
     p = page(b, '404.html', f'Page not found – {SITE_NAME}', 'Page not found.', body404, noindex=True)
     write('404.html', p)
 
@@ -461,10 +526,13 @@ Original sources and authors: see the License page of the site ({SITE_URL}/licen
     for c in ORDER:
         zp = os.path.join(OUT, 'zips', f'{c}-sfx-pack.zip')
         with zipfile.ZipFile(zp, 'w', zipfile.ZIP_DEFLATED) as z:
+            def add(arc, data):  # fixed timestamp -> identical ZIP bytes on every rebuild (no git churn)
+                zi = zipfile.ZipInfo(arc, date_time=(2026, 1, 1, 0, 0, 0)); zi.compress_type = zipfile.ZIP_DEFLATED
+                zi.external_attr = 0o644 << 16; z.writestr(zi, data)
             for m in by_cat[c]:
-                z.write(os.path.join(AUDIO, c, f"{m['file']}.mp3"), f"{c}/MP3/{m['file']}.mp3")
-                z.write(os.path.join(AUDIO, c, f"{m['file']}.wav"), f"{c}/WAV/{m['file']}.wav")
-            z.writestr(f'{c}/LICENSE.txt', lic.format(cat=CATS[c]))
+                add(f"{c}/MP3/{m['file']}.mp3", open(os.path.join(AUDIO, c, f"{m['file']}.mp3"), 'rb').read())
+                add(f"{c}/WAV/{m['file']}.wav", open(os.path.join(AUDIO, c, f"{m['file']}.wav"), 'rb').read())
+            add(f'{c}/LICENSE.txt', lic.format(cat=CATS[c]))
             # deterministic-ish timestamps not required
 
 def build_seo():
@@ -473,6 +541,9 @@ def build_seo():
         f'  <url><loc>{SITE_URL}/{u}</loc><lastmod>{UPDATED}</lastmod></url>\n' for u in urls) + '</urlset>\n'
     write('sitemap.xml', sm)
     write('robots.txt', f'User-agent: *\nAllow: /\n\nSitemap: {SITE_URL}/sitemap.xml\n')
+    # SOURCES.md: one row per published sound, generated so it never drifts from the site
+    rows = ''.join(f"| {i+1} | sounds/{m['cat']}/{m['file']}.mp3 (+ .wav) | {CATS[m['cat']]} | [{SOURCES[m['file']]['title']}]({SOURCES[m['file']]['url']}) | {SOURCES[m['file']]['file']} | {SOURCES[m['file']]['author']} | {SOURCES[m['file']]['license']} |\n" for i, m in enumerate(meta))
+    write('SOURCES.md', open(os.path.join(HERE, 'sources_head.md'), encoding='utf-8').read() + '| # | Site file | Category | Original (source page) | Original file | Author | Licence |\n|---|---|---|---|---|---|---|\n' + rows)
     write('.nojekyll', '')
     if CNAME:
         write('CNAME', CNAME + '\n')

@@ -649,16 +649,6 @@
   "cat": "camera-shutters",
   "name": "Burst Mode Shutter"
  },
- "phone-camera-shutter": {
-  "url": "https://bigsoundbank.com/iphone-camera-s0448.html",
-  "title": "iPhone - Camera (#0448)",
-  "author": "Joseph Sardin (BigSoundBank)",
-  "license": "CC0 1.0 / public domain",
-  "license_url": "https://bigsoundbank.com/licenses.html",
-  "file": "0448.flac",
-  "cat": "camera-shutters",
-  "name": "Phone Camera Shutter"
- },
  "mouse-click": {
   "url": "https://bigsoundbank.com/apple-magic-mouse-single-click-s1742.html",
   "title": "Apple Magic Mouse, Single Click (#1742)",
@@ -1188,5 +1178,345 @@
   "file": "1225.flac",
   "cat": "typing-paper",
   "name": "Paper Crumple"
+ },
+ "rimshot-joke-drum-fill": {
+  "url": "https://bigsoundbank.com/battery-joke-s0433.html",
+  "title": "Battery Joke #1 (#0433)",
+  "author": "Joseph Sardin (BigSoundBank)",
+  "license": "CC0 1.0 / public domain",
+  "license_url": "https://bigsoundbank.com/licenses.html",
+  "file": "0433.wav",
+  "cat": "cartoon-funny",
+  "name": "Rimshot Joke Drum Fill"
+ },
+ "ba-dum-tss-joke-drum": {
+  "url": "https://bigsoundbank.com/battery-joke-5-s2412.html",
+  "title": "Battery joke #5 (#2412)",
+  "author": "Joseph Sardin (BigSoundBank)",
+  "license": "CC0 1.0 / public domain",
+  "license_url": "https://bigsoundbank.com/licenses.html",
+  "file": "2412.flac",
+  "cat": "cartoon-funny",
+  "name": "Ba Dum Tss Joke Drum"
+ },
+ "snare-drum-roll": {
+  "url": "https://bigsoundbank.com/drum-roll-1-m-s2401.html",
+  "title": "Drum roll 1 M (#2401)",
+  "author": "Joseph Sardin (BigSoundBank)",
+  "license": "CC0 1.0 / public domain",
+  "license_url": "https://bigsoundbank.com/licenses.html",
+  "file": "2401.flac",
+  "cat": "cartoon-funny",
+  "name": "Snare Drum Roll"
+ },
+ "record-scratch": {
+  "url": "https://bigsoundbank.com/vinyl-scratch-2-s2859.html",
+  "title": "Vinyl Scratch #2 (#2859)",
+  "author": "Joseph Sardin (BigSoundBank)",
+  "license": "CC0 1.0 / public domain",
+  "license_url": "https://bigsoundbank.com/licenses.html",
+  "file": "2859.flac",
+  "cat": "cartoon-funny",
+  "name": "Record Scratch"
+ },
+ "record-scratch-short": {
+  "url": "https://bigsoundbank.com/vinyl-scratch-14-s2871.html",
+  "title": "Vinyl Scratch #14 (#2871)",
+  "author": "Joseph Sardin (BigSoundBank)",
+  "license": "CC0 1.0 / public domain",
+  "license_url": "https://bigsoundbank.com/licenses.html",
+  "file": "2871.flac",
+  "cat": "cartoon-funny",
+  "name": "Record Scratch Short"
+ },
+ "clown-bike-horn-honk": {
+  "url": "https://bigsoundbank.com/trumpet-horn-for-bike-1-s0972.html",
+  "title": "Trumpet horn for bike #1 (#0972)",
+  "author": "Joseph Sardin (BigSoundBank)",
+  "license": "CC0 1.0 / public domain",
+  "license_url": "https://bigsoundbank.com/licenses.html",
+  "file": "0972.wav",
+  "cat": "cartoon-funny",
+  "name": "Clown Bike Horn Honk"
+ },
+ "bike-horn-double-honk": {
+  "url": "https://bigsoundbank.com/trumpet-horn-for-bike-3-s1086.html",
+  "title": "Trumpet horn for bike #3 (#1086)",
+  "author": "Joseph Sardin (BigSoundBank)",
+  "license": "CC0 1.0 / public domain",
+  "license_url": "https://bigsoundbank.com/licenses.html",
+  "file": "1086.flac",
+  "cat": "cartoon-funny",
+  "name": "Bike Horn Double Honk"
+ },
+ "squeaky-toy-squeeze": {
+  "url": "https://bigsoundbank.com/squeaker-toy-2-s0879.html",
+  "title": "Squeaker toy #2 (#0879)",
+  "author": "Joseph Sardin (BigSoundBank)",
+  "license": "CC0 1.0 / public domain",
+  "license_url": "https://bigsoundbank.com/licenses.html",
+  "file": "0879.flac",
+  "cat": "cartoon-funny",
+  "name": "Squeaky Toy Squeeze"
+ },
+ "rubber-toy-squeak-honk": {
+  "url": "https://bigsoundbank.com/couinement-jouet-1-s3331.html",
+  "title": "Couinement jouet #1 (#3331)",
+  "author": "Joseph Sardin (BigSoundBank)",
+  "license": "CC0 1.0 / public domain",
+  "license_url": "https://bigsoundbank.com/licenses.html",
+  "file": "3331.flac",
+  "cat": "cartoon-funny",
+  "name": "Rubber Toy Squeak Honk"
+ },
+ "quick-fart": {
+  "url": "https://bigsoundbank.com/flatulence-3-s0241.html",
+  "title": "Flatulence #3 (#0241)",
+  "author": "Joseph Sardin (BigSoundBank)",
+  "license": "CC0 1.0 / public domain",
+  "license_url": "https://bigsoundbank.com/licenses.html",
+  "file": "0241.wav",
+  "cat": "cartoon-funny",
+  "name": "Quick Fart"
+ },
+ "short-fart": {
+  "url": "https://bigsoundbank.com/flatulence-4-s1031.html",
+  "title": "Flatulence #4 (#1031)",
+  "author": "Joseph Sardin (BigSoundBank)",
+  "license": "CC0 1.0 / public domain",
+  "license_url": "https://bigsoundbank.com/licenses.html",
+  "file": "1031.flac",
+  "cat": "cartoon-funny",
+  "name": "Short Fart"
+ },
+ "kids-laughing": {
+  "url": "https://bigsoundbank.com/laughter-of-children-s1660.html",
+  "title": "Laughter of Children (#1660)",
+  "author": "Joseph Sardin (BigSoundBank)",
+  "license": "CC0 1.0 / public domain",
+  "license_url": "https://bigsoundbank.com/licenses.html",
+  "file": "1660.flac",
+  "cat": "cartoon-funny",
+  "name": "Kids Laughing"
+ },
+ "baby-giggle": {
+  "url": "https://bigsoundbank.com/laughing-boy-of-16-months-s0980.html",
+  "title": "Laughing Boy of 16 Months (#0980)",
+  "author": "Joseph Sardin (BigSoundBank)",
+  "license": "CC0 1.0 / public domain",
+  "license_url": "https://bigsoundbank.com/licenses.html",
+  "file": "0980.flac",
+  "cat": "cartoon-funny",
+  "name": "Baby Giggle"
+ },
+ "evil-villain-laugh": {
+  "url": "https://bigsoundbank.com/laughter-s0490.html",
+  "title": "Laughter (#0490)",
+  "author": "Joseph Sardin (BigSoundBank)",
+  "license": "CC0 1.0 / public domain",
+  "license_url": "https://bigsoundbank.com/licenses.html",
+  "file": "0490.wav",
+  "cat": "cartoon-funny",
+  "name": "Evil Villain Laugh"
+ },
+ "crowd-applause": {
+  "url": "https://bigsoundbank.com/applause-150-people-s0019.html",
+  "title": "Applause: 150 People (#0019)",
+  "author": "Joseph Sardin (BigSoundBank)",
+  "license": "CC0 1.0 / public domain",
+  "license_url": "https://bigsoundbank.com/licenses.html",
+  "file": "0019.wav",
+  "cat": "cartoon-funny",
+  "name": "Crowd Applause"
+ },
+ "crowd-cheer-yeah": {
+  "url": "https://bigsoundbank.com/shouts-and-applauses-of-teens-1-s0236.html",
+  "title": "Shouts and Applauses of Teens #1 (#0236)",
+  "author": "Joseph Sardin (BigSoundBank)",
+  "license": "CC0 1.0 / public domain",
+  "license_url": "https://bigsoundbank.com/licenses.html",
+  "file": "0236.wav",
+  "cat": "cartoon-funny",
+  "name": "Crowd Cheer Yeah"
+ },
+ "crickets-awkward-silence": {
+  "url": "https://bigsoundbank.com/field-cricket-s1020.html",
+  "title": "Field cricket (#1020)",
+  "author": "Joseph Sardin (BigSoundBank)",
+  "license": "CC0 1.0 / public domain",
+  "license_url": "https://bigsoundbank.com/licenses.html",
+  "file": "1020.flac",
+  "cat": "cartoon-funny",
+  "name": "Crickets Awkward Silence"
+ },
+ "party-horn-blower": {
+  "url": "https://bigsoundbank.com/party-horn-3-s1555.html",
+  "title": "Party horn #3 (#1555)",
+  "author": "Joseph Sardin (BigSoundBank)",
+  "license": "CC0 1.0 / public domain",
+  "license_url": "https://bigsoundbank.com/licenses.html",
+  "file": "1555.flac",
+  "cat": "cartoon-funny",
+  "name": "Party Horn Blower"
+ },
+ "boxing-ring-bell": {
+  "url": "https://bigsoundbank.com/boxing-bell-3-s1928.html",
+  "title": "Boxing bell #3 (#1928)",
+  "author": "Joseph Sardin (BigSoundBank)",
+  "license": "CC0 1.0 / public domain",
+  "license_url": "https://bigsoundbank.com/licenses.html",
+  "file": "1928.flac",
+  "cat": "cartoon-funny",
+  "name": "Boxing Ring Bell"
+ },
+ "old-car-ooga-horn": {
+  "url": "https://bigsoundbank.com/oogah-horn-3-s2542.html",
+  "title": "Oogah horn #3 (#2542)",
+  "author": "Joseph Sardin (BigSoundBank)",
+  "license": "CC0 1.0 / public domain",
+  "license_url": "https://bigsoundbank.com/licenses.html",
+  "file": "2542.flac",
+  "cat": "cartoon-funny",
+  "name": "Old Car Ooga Horn"
+ },
+ "big-water-splash": {
+  "url": "https://bigsoundbank.com/splash-big-1-s1519.html",
+  "title": "Splash, Big #1 (#1519)",
+  "author": "Joseph Sardin (BigSoundBank)",
+  "license": "CC0 1.0 / public domain",
+  "license_url": "https://bigsoundbank.com/licenses.html",
+  "file": "1519.flac",
+  "cat": "cartoon-funny",
+  "name": "Big Water Splash"
+ },
+ "body-fall-thud": {
+  "url": "https://bigsoundbank.com/body-fall-1-s2452.html",
+  "title": "Body Fall #1 (#2452)",
+  "author": "Joseph Sardin (BigSoundBank)",
+  "license": "CC0 1.0 / public domain",
+  "license_url": "https://bigsoundbank.com/licenses.html",
+  "file": "2452.flac",
+  "cat": "cartoon-funny",
+  "name": "Body Fall Thud"
+ },
+ "shovel-head-bonk": {
+  "url": "https://bigsoundbank.com/shot-shovel-s1084.html",
+  "title": "Shot of shovel (#1084)",
+  "author": "Joseph Sardin (BigSoundBank)",
+  "license": "CC0 1.0 / public domain",
+  "license_url": "https://bigsoundbank.com/licenses.html",
+  "file": "1084.flac",
+  "cat": "cartoon-funny",
+  "name": "Shovel Head Bonk"
+ },
+ "frying-pan-bonk": {
+  "url": "https://bigsoundbank.com/paella-pan-outside-s1581.html",
+  "title": "Paella pan, outside (#1581)",
+  "author": "Joseph Sardin (BigSoundBank)",
+  "license": "CC0 1.0 / public domain",
+  "license_url": "https://bigsoundbank.com/licenses.html",
+  "file": "1581.flac",
+  "cat": "cartoon-funny",
+  "name": "Frying Pan Bonk"
+ },
+ "face-slap": {
+  "url": "https://bigsoundbank.com/slaps-s0597.html",
+  "title": "Slaps (#0597)",
+  "author": "Joseph Sardin (BigSoundBank)",
+  "license": "CC0 1.0 / public domain",
+  "license_url": "https://bigsoundbank.com/licenses.html",
+  "file": "0597.wav",
+  "cat": "cartoon-funny",
+  "name": "Face Slap"
+ },
+ "kiss-smooch": {
+  "url": "https://bigsoundbank.com/kisses-4-s2200.html",
+  "title": "Kisses #4 (#2200)",
+  "author": "Joseph Sardin (BigSoundBank)",
+  "license": "CC0 1.0 / public domain",
+  "license_url": "https://bigsoundbank.com/licenses.html",
+  "file": "2200.flac",
+  "cat": "cartoon-funny",
+  "name": "Kiss Smooch"
+ },
+ "big-burp": {
+  "url": "https://bigsoundbank.com/burps-s0242.html",
+  "title": "Burps (#0242)",
+  "author": "Joseph Sardin (BigSoundBank)",
+  "license": "CC0 1.0 / public domain",
+  "license_url": "https://bigsoundbank.com/licenses.html",
+  "file": "0242.wav",
+  "cat": "cartoon-funny",
+  "name": "Big Burp"
+ },
+ "ducks-quacking": {
+  "url": "https://bigsoundbank.com/ducks-s0276.html",
+  "title": "Ducks (#0276)",
+  "author": "Joseph Sardin (BigSoundBank)",
+  "license": "CC0 1.0 / public domain",
+  "license_url": "https://bigsoundbank.com/licenses.html",
+  "file": "0276.wav",
+  "cat": "cartoon-funny",
+  "name": "Ducks Quacking"
+ },
+ "goat-scream-bleat": {
+  "url": "https://bigsoundbank.com/bleating-goat-1-s0279.html",
+  "title": "Bleating Goat #1 (#0279)",
+  "author": "Joseph Sardin (BigSoundBank)",
+  "license": "CC0 1.0 / public domain",
+  "license_url": "https://bigsoundbank.com/licenses.html",
+  "file": "0279.wav",
+  "cat": "cartoon-funny",
+  "name": "Goat Scream Bleat"
+ },
+ "sneeze-achoo": {
+  "url": "https://bigsoundbank.com/woman-sneezing-s3439.html",
+  "title": "Woman sneezing (#3439)",
+  "author": "Joseph Sardin (BigSoundBank)",
+  "license": "CC0 1.0 / public domain",
+  "license_url": "https://bigsoundbank.com/licenses.html",
+  "file": "3439.flac",
+  "cat": "cartoon-funny",
+  "name": "Sneeze Achoo"
+ },
+ "cartoon-snore": {
+  "url": "https://bigsoundbank.com/man-snoring-s0170.html",
+  "title": "Man Snoring (#0170)",
+  "author": "Joseph Sardin (BigSoundBank)",
+  "license": "CC0 1.0 / public domain",
+  "license_url": "https://bigsoundbank.com/licenses.html",
+  "file": "0170.wav",
+  "cat": "cartoon-funny",
+  "name": "Cartoon Snore"
+ },
+ "wrong-answer-buzzer": {
+  "url": "https://bigsoundbank.com/buzzer-4-s1586.html",
+  "title": "Buzzer #4 (#1586)",
+  "author": "Joseph Sardin (BigSoundBank)",
+  "license": "CC0 1.0 / public domain",
+  "license_url": "https://bigsoundbank.com/licenses.html",
+  "file": "1586.wav",
+  "cat": "cartoon-funny",
+  "name": "Wrong Answer Buzzer"
+ },
+ "spooky-ghost-whistle": {
+  "url": "https://bigsoundbank.com/ghost-on-the-flute-1-s2054.html",
+  "title": "Ghost on the Flute #1 (#2054)",
+  "author": "Joseph Sardin (BigSoundBank)",
+  "license": "CC0 1.0 / public domain",
+  "license_url": "https://bigsoundbank.com/licenses.html",
+  "file": "2054.flac",
+  "cat": "cartoon-funny",
+  "name": "Spooky Ghost Whistle"
+ },
+ "slinky-spring-bounce": {
+  "url": "https://bigsoundbank.com/metal-slinky-s0633.html",
+  "title": "Metal Slinky (#0633)",
+  "author": "Joseph Sardin (BigSoundBank)",
+  "license": "CC0 1.0 / public domain",
+  "license_url": "https://bigsoundbank.com/licenses.html",
+  "file": "0633.wav",
+  "cat": "cartoon-funny",
+  "name": "Slinky Spring Bounce"
  }
 }

@@ -44,8 +44,8 @@ Because pops are so short, they cut through music easily. Keep them a few decibe
    noun='camera shutter',
    title='Camera Shutter Sound Effects',
    h1='Free Camera Shutter Sound Effects',
-   short='DSLR, film camera, burst mode and phone camera clicks.',
-   intro="""A camera shutter is the go-to sound for freeze frames, screenshot moments, photo slideshows and "snap" transitions. These are real recordings of a Nikon D70s DSLR, a Kodak Instamatic film camera, an old Kodak Brownie, a vintage flash camera with bulb, a burst-mode sequence and a smartphone camera.
+   short='DSLR, film camera, flash camera and burst-mode shutter clicks.',
+   intro="""A camera shutter is the go-to sound for freeze frames, screenshot moments, photo slideshows and "snap" transitions. These are real recordings of a Nikon D70s DSLR, a Kodak Instamatic film camera, an old Kodak Brownie, a vintage flash camera with bulb and a burst-mode sequence.
 Put the click exactly on the freeze-frame or flash frame. The burst-mode file suits paparazzi and fashion edits, while the film cameras give a warmer, retro feel for vlogs and travel videos.""",
    kw='camera shutter sound effect, camera click sfx, photo sound, snap sound'),
  'ui-clicks': dict(
@@ -84,10 +84,10 @@ For a glitch transition, cut a few frames of the data glitch under an RGB-split 
    noun='cartoon & funny',
    title='Cartoon & Funny Sound Effects',
    h1='Free Cartoon & Funny Sound Effects',
-   short='Boings, air horns and cartoon twangs for comedy edits.',
-   intro="""Comedy edits live on well-timed cartoon sounds. Here you get harp boings, single and double air-horn honks and cartoon "twang" sounds of something sticking into a wall.
-Place the sound right on the funny frame and keep it short: a boing on a jump, an air horn on a punchline, a twang when something lands. Do not overuse them; one or two per joke is enough.""",
-   kw='cartoon sound effects, funny sound effects, boing sound, air horn sfx'),
+   short='Rimshots, record scratches, horns, laughs, bonks and boings for comedy edits.',
+   intro="""Comedy edits live on well-timed funny sounds. This is the biggest pack on the site: rimshot and "ba dum tss" joke drums, record scratches, a drum roll, clown and bike horns, an old "ooga" car horn, squeaky toys, harp boings, cartoon twangs, air horns, a wrong-answer buzzer, crickets for awkward silence, applause and cheering crowds, kids and baby laughter, an evil villain laugh, frying-pan and shovel bonks, face slaps, body falls, splashes, burps, farts, a sneeze, a snore, a screaming goat and more. All are real recordings, not synthesised.
+Place the sound right on the funny frame and keep it short: a boing on a jump, a rimshot or air horn on a punchline, a record scratch on a freeze frame, crickets when a joke falls flat. Do not overuse them; one or two per joke is enough.""",
+   kw='cartoon sound effects, funny sound effects, meme sound effects, rimshot, record scratch, boing sound, air horn sfx'),
  'typing-paper': dict(
    noun='typing & paper',
    title='Typing & Paper Sound Effects',
@@ -142,7 +142,7 @@ SEO = {
  'camera-shutters': dict(
    title='Camera Shutter Sound Effect – Free Download (MP3, WAV)',
    h1='Free Camera Shutter Sound Effects',
-   extra="""Different cameras give different moods. A DSLR shutter sound effect is crisp and modern, the right choice for product photos, fashion edits and screenshot moments. The Kodak film cameras sound lighter and more mechanical, which suits nostalgic travel montages and family videos. The burst-mode file fires a rapid sequence for paparazzi and red-carpet gags, and the phone camera shutter matches content filmed or shown on a smartphone. Add a quick white flash frame on the click for the classic photo effect."""),
+   extra="""Different cameras give different moods. A DSLR shutter sound effect is crisp and modern, the right choice for product photos, fashion edits and screenshot moments. The Kodak film cameras sound lighter and more mechanical, which suits nostalgic travel montages and family videos. The burst-mode file fires a rapid sequence for paparazzi and red-carpet gags. Add a quick white flash frame on the click for the classic photo effect."""),
  'ui-clicks': dict(
    title='Click Sound Effect & UI Sounds – Free Download (MP3, WAV)',
    h1='Free Mouse Click & UI Sound Effects',
@@ -162,7 +162,7 @@ SEO = {
  'cartoon-funny': dict(
    title='Funny & Cartoon Sound Effects – Free Download (MP3, WAV)',
    h1='Free Funny & Cartoon Sound Effects',
-   extra="""Funny sound effects work because of timing, not volume. Put a boing exactly on the frame where someone jumps or a head pops into shot, an air horn right on the punchline, and a twang when something lands awkwardly or a joke falls flat. Use them sparingly so each one still gets a laugh. These cartoon sound effects are popular in meme edits, reaction videos, kids' content and comedy shorts."""),
+   extra="""Funny sound effects work because of timing, not volume. Put a boing exactly on the frame where someone jumps or a head pops into shot, an air horn right on the punchline, and a twang when something lands awkwardly or a joke falls flat. Use them sparingly so each one still gets a laugh. A rimshot after a pun, a record scratch on a freeze frame, crickets after silence, a wrong-answer buzzer on a mistake and a frying-pan bonk on a slapstick hit are the meme sounds editors reach for most. These cartoon sound effects are popular in meme edits, reaction videos, kids' content and comedy shorts."""),
  'typing-paper': dict(
    title='Typing & Typewriter Sound Effects – Free Download (MP3, WAV)',
    h1='Free Typing, Typewriter & Paper Sound Effects',
