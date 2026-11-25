@@ -17,7 +17,7 @@ Rebuilding the site never overwrites `ads/ads-config.js`.
 
 ## Switch to a custom domain
 Generator: `_source/build.py`. Change at the top (or via env vars) and rebuild:
-- `SITE_URL` → `https://yourdomain.com` (used only for canonical, og:url, sitemap.xml, robots.txt)
+- `SITE_URL` → `https://yourdomain.com` (used only for canonical, og:url, sitemap.xml, robots.txt, llms.txt)
 - `BASE_PATH` → `/` (used only by 404.html)
 - `CNAME` → `yourdomain.com` (writes the CNAME file)
 All other links are relative. Then in repo Settings → Pages → Custom domain, and DNS: 4 A records to 185.199.108-111.153 + CNAME `www` → mydevspace2.github.io.
@@ -28,12 +28,14 @@ Every file's original URL, author and licence: `SOURCES.md` and the site's Licen
 ## SEO structure
 - Home `/`, 22 category pages `/<category>/`, one page per sound `/sound/<slug>/` (521), plus About / License / Privacy / Terms / Contact.
 - Every page: unique title + meta description, canonical, Open Graph + Twitter card. JSON-LD: WebSite + SearchAction (`/?q=`) + Organization + FAQPage on home; CollectionPage + ItemList + BreadcrumbList on categories; AudioObject + BreadcrumbList on sound pages.
-- `sitemap.xml` lists every page with `lastmod`; `robots.txt` points to it. Per-sound texts live in `_source/sound_text.py`, category SEO texts in `_source/content.py` (`SEO`).
+- `sitemap.xml` lists every page with `lastmod`; `robots.txt` explicitly allows Googlebot, Bingbot and the AI crawlers (GPTBot, OAI-SearchBot, ChatGPT-User, ClaudeBot, Claude-SearchBot, PerplexityBot, Google-Extended, Applebot-Extended, CCBot …) and points to the sitemap; `llms.txt` summarises the site for AI assistants.
+- Note: on a GitHub *project* site crawlers only read `mydevspace2.github.io/robots.txt` (domain root), so this repo's robots.txt is ignored until the custom domain is set; then it sits at the root and works with no other change.
+- Sound pages: prev/next links within the category + 6 related sounds; category pages: every sound as a real link, all other categories, editor bio box. About page holds the editorial / licence-checking policy (brand persona "The FreeSFX Download team").
+- Share image: `_source/og.py` regenerates `assets/og-image.{jpg,png,webp}` (pages use the JPG). CSS is minified when inlined; JS is minified with terser (tools/node_modules) if present. Asset URLs use content hashes (`?v=`). Per-sound texts live in `_source/sound_text.py`, category SEO texts in `_source/content.py` (`SEO`).
 
 ## Google Search Console (TODO – not done yet)
 1. search.google.com/search-console → Add property → **URL prefix** `https://mydevspace2.github.io/free-sfx-download/`.
-2. Choose **HTML tag** verification and paste the tag into `page()` in `_source/build.py`, right after the `<meta name="viewport" ...>` line, e.g.
-   `<meta name="google-site-verification" content="PASTE_CODE_HERE">` — rebuild and push, then click Verify.
+2. Choose **HTML tag** verification and paste only the `content` value into `GOOGLE_SITE_VERIFICATION` at the top of `_source/build.py` (Bing: `BING_SITE_VERIFICATION`) — rebuild and push, then click Verify.
 3. Sitemaps → submit `sitemap.xml`. URL Inspection → Request indexing for home + category pages.
 4. Bing Webmaster Tools → Import from Search Console.
 (After moving to a custom domain, add a new Domain property and re-submit the sitemap.)

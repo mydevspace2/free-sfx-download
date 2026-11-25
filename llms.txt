@@ -1,0 +1,71 @@
+# Free SFX Download
+
+> Free SFX Download is a free library of 521 CC0 (public domain) sound effects for video editors, short-form creators, podcasters and game developers. Every sound can be downloaded in one click as MP3 (320 kbps) or WAV (48 kHz, 24-bit), with no sign-up, and may be used commercially without attribution.
+
+Key facts:
+- Licence: CC0 1.0 Universal for every file, including our edited versions (https://creativecommons.org/publicdomain/zero/1.0/).
+- Sources: BigSoundBank (Joseph Sardin), Kenney.nl and CC0 authors on OpenGameArt. Per-file credits are on each sound page and the License page.
+- Editing: silence trimmed, short fades, loudness about -14 LUFS, true peak at or below -1 dBTP.
+- Each category can be downloaded as a ZIP (MP3 + WAV + licence file).
+- Curated by The FreeSFX Download team; no copied film/TV/meme clips and no AI-generated sounds.
+
+## Main pages
+- [Home: search all 521 sound effects](https://mydevspace2.github.io/free-sfx-download/)
+- [License and full source list](https://mydevspace2.github.io/free-sfx-download/license/)
+- [About and editorial policy](https://mydevspace2.github.io/free-sfx-download/about/)
+- [Contact](https://mydevspace2.github.io/free-sfx-download/contact/)
+
+## Categories
+- [Cartoon & Funny sound effects](https://mydevspace2.github.io/free-sfx-download/cartoon-funny/): 71 sounds. Rimshots, record scratches, horns, laughs, bonks and boings for comedy edits.
+- [Laughs & Applause sound effects](https://mydevspace2.github.io/free-sfx-download/laughs-applause/): 21 sounds. Applause, cheering, baby and toddler giggles, evil laughs and crowd walla.
+- [Human & Voice Reactions sound effects](https://mydevspace2.github.io/free-sfx-download/human-reactions/): 28 sounds. Screams, sighs, yawns, coughs, sneezes, burps, shushes, snaps and crunches.
+- [Whooshes & Transitions sound effects](https://mydevspace2.github.io/free-sfx-download/whooshes-transitions/): 31 sounds. Swooshes, swipes and fly-bys for cuts, text and zoom transitions.
+- [Impacts & Hits sound effects](https://mydevspace2.github.io/free-sfx-download/impacts-hits/): 31 sounds. Punches, slams, gongs, clangs and knocks for emphasis.
+- [Booms & Explosions sound effects](https://mydevspace2.github.io/free-sfx-download/booms-explosions/): 20 sounds. Explosions, thunder claps, sub booms and bangs.
+- [Risers & Sweeps sound effects](https://mydevspace2.github.io/free-sfx-download/risers-sweeps/): 17 sounds. Rising tension, sweeps and power-ups that lead into a drop or reveal.
+- [Pops sound effects](https://mydevspace2.github.io/free-sfx-download/pops/): 18 sounds. Cork pops, balloon pops, bubble wrap and quick UI pops.
+- [Glitches & Sci-Fi sound effects](https://mydevspace2.github.io/free-sfx-download/glitches-sci-fi/): 19 sounds. Data glitches, static bursts, lasers and UFO fly-bys.
+- [Notifications & Alerts sound effects](https://mydevspace2.github.io/free-sfx-download/notifications-alerts/): 27 sounds. Pings, dings, bells, chimes, success and error tones.
+- [UI & Clicks sound effects](https://mydevspace2.github.io/free-sfx-download/ui-clicks/): 20 sounds. Mouse clicks, trackpad, buttons, toggles and switches.
+- [Camera Shutters sound effects](https://mydevspace2.github.io/free-sfx-download/camera-shutters/): 16 sounds. DSLR, film camera, flash camera and burst-mode shutter clicks.
+- [Money & Coins sound effects](https://mydevspace2.github.io/free-sfx-download/money-coins/): 16 sounds. Coin drops, coin spins, cash register beeps and casino chips.
+- [Typing & Paper sound effects](https://mydevspace2.github.io/free-sfx-download/typing-paper/): 17 sounds. Typewriter keys and bell, page turns and paper crumple.
+- [Horror & Suspense sound effects](https://mydevspace2.github.io/free-sfx-download/horror-suspense/): 21 sounds. Ghosts, zombies, heartbeats, creaking doors, ear ringing and ticking clocks.
+- [Retro Game & 8-Bit sound effects](https://mydevspace2.github.io/free-sfx-download/retro-game-8bit/): 28 sounds. 8-bit jumps, power-ups, coins, lasers and game voice lines like "Game over".
+- [Animals sound effects](https://mydevspace2.github.io/free-sfx-download/animals/): 26 sounds. Dogs, cats, farm animals, birds, owls, frogs, bees and flies.
+- [Sports & Games sound effects](https://mydevspace2.github.io/free-sfx-download/sports-games/): 15 sounds. Referee whistles, boxing bell, ball kicks and bounces, dice and pinball.
+- [Doors & Household sound effects](https://mydevspace2.github.io/free-sfx-download/doors-household/): 21 sounds. Knocks, door slams, doorbells, drawers, cupboards, glasses and switches.
+- [Vehicles, Horns & Sirens sound effects](https://mydevspace2.github.io/free-sfx-download/vehicles-horns/): 22 sounds. Car, truck, bus, train and ship horns, sirens, tyre screeches and engines.
+- [Nature & Weather sound effects](https://mydevspace2.github.io/free-sfx-download/nature-weather/): 20 sounds. Thunder, rain, wind, waves, streams, fire, birds and night crickets.
+- [Guns & Weapons sound effects](https://mydevspace2.github.io/free-sfx-download/guns-weapons/): 16 sounds. Rifle and shotgun shots, reloads, shell casings, swords, knives and arrows.
+
+## Popular sounds
+- [Quick Swipe Transition sound effect](https://mydevspace2.github.io/free-sfx-download/sound/quick-swipe-transition/)
+- [Hard Punch Hit sound effect](https://mydevspace2.github.io/free-sfx-download/sound/hard-punch-hit/)
+- [Deep Bass Boom sound effect](https://mydevspace2.github.io/free-sfx-download/sound/deep-bass-boom/)
+- [Shepard Tone Riser sound effect](https://mydevspace2.github.io/free-sfx-download/sound/shepard-tone-riser/)
+- [DSLR Shutter Click sound effect](https://mydevspace2.github.io/free-sfx-download/sound/dslr-shutter-click/)
+- [Notification Ping 1 sound effect](https://mydevspace2.github.io/free-sfx-download/sound/notification-ping-1/)
+- [Computer Data Glitch 1 sound effect](https://mydevspace2.github.io/free-sfx-download/sound/computer-data-glitch-1/)
+- [Cartoon Boing sound effect](https://mydevspace2.github.io/free-sfx-download/sound/cartoon-boing/)
+- [Air Horn Honk sound effect](https://mydevspace2.github.io/free-sfx-download/sound/air-horn-honk/)
+- [Ba Dum Tss Joke Drum sound effect](https://mydevspace2.github.io/free-sfx-download/sound/ba-dum-tss-joke-drum/)
+- [Record Scratch sound effect](https://mydevspace2.github.io/free-sfx-download/sound/record-scratch/)
+- [Quick Fart sound effect](https://mydevspace2.github.io/free-sfx-download/sound/quick-fart/)
+- [Crickets Awkward Silence sound effect](https://mydevspace2.github.io/free-sfx-download/sound/crickets-awkward-silence/)
+- [Wrong Answer Buzzer sound effect](https://mydevspace2.github.io/free-sfx-download/sound/wrong-answer-buzzer/)
+- [Stadium Air Horn Blast sound effect](https://mydevspace2.github.io/free-sfx-download/sound/stadium-air-horn-blast/)
+- [Censor Beep sound effect](https://mydevspace2.github.io/free-sfx-download/sound/censor-beep/)
+- [Big Crowd Applause sound effect](https://mydevspace2.github.io/free-sfx-download/sound/big-crowd-applause/)
+- [Evil Man Laugh sound effect](https://mydevspace2.github.io/free-sfx-download/sound/evil-man-laugh/)
+- [Surprised Wah Exclamation sound effect](https://mydevspace2.github.io/free-sfx-download/sound/surprised-wah-exclamation/)
+- [Mega Swoosh sound effect](https://mydevspace2.github.io/free-sfx-download/sound/mega-swoosh/)
+- [Thunder Crack Boom sound effect](https://mydevspace2.github.io/free-sfx-download/sound/thunder-crack-boom/)
+- [Mouth Bubble Pop sound effect](https://mydevspace2.github.io/free-sfx-download/sound/mouth-bubble-pop/)
+- [Heartbeat Fast sound effect](https://mydevspace2.github.io/free-sfx-download/sound/heartbeat-fast/)
+- [Game Over Voice sound effect](https://mydevspace2.github.io/free-sfx-download/sound/game-over-voice/)
+
+## Optional
+- [Sitemap (every sound page)](https://mydevspace2.github.io/free-sfx-download/sitemap.xml)
+- [Privacy Policy](https://mydevspace2.github.io/free-sfx-download/privacy/)
+- [Terms of Use](https://mydevspace2.github.io/free-sfx-download/terms/)

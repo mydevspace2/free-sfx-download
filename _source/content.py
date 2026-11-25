@@ -218,7 +218,7 @@ SEO = {
    h1='Free Riser & Sweep Sound Effects',
    extra="""A riser sound effect works best when its end is locked to something: the cut, the beat drop, the product reveal or the punchline. Start the riser early enough that the build is felt, then stop it dead on the change and let an impact take over. The Shepard-tone riser suits film-style tension, the spaceship pass suits long sweeping transitions, and the short digital sweeps suit power-ups, level-ups and app feature reveals."""),
  'pops': dict(
-   title='Pop Sound Effects – Free Bubble, Balloon & Cork Pops (MP3, WAV)',
+   title='Pop Sound Effects – Free Bubble, Balloon & Cork Pops',
    h1='Free Pop Sound Effects',
    extra="""The pop sound effect is the most common sound in caption-heavy short videos: each word or emoji that appears gets a tiny pop. For that job, the mouth pop and the bubble-wrap pop are the cleanest because they are short and soft. The champagne cork and balloon pop are bigger and work better as one-off accents for celebrations, surprises and reveals. Every pop here starts instantly, so it lines up with the exact frame where the element appears."""),
  'camera-shutters': dict(
@@ -255,7 +255,7 @@ SEO = {
    extra="An applause sound effect works for much more than performances: use it after a correct quiz answer, a successful hack or a funny fail as an ironic reaction. The single-person clap is perfect for a sarcastic slow clap, while the 300- and 600-person crowds suit awards and big reveals. Laugh sound effects range from cute baby giggles to evil villain laughs, so you can match the joke's tone.",
    ),
  'human-reactions': dict(
-   title='Human Reaction Sound Effects – Scream, Sigh, Yawn, Burp (MP3, WAV)',
+   title='Human Reaction Sound Effects – Scream, Sigh, Burp (Free)',
    h1='Free Human & Voice Reaction Sound Effects',
    extra='Editors reach for human sound effects to exaggerate a reaction: a sigh when someone is unimpressed, a yawn on a boring line, a burp after a food challenge or a shush when a secret comes out. Because these are real voices, they blend naturally with dialogue. Lower them a few decibels below the main voice and they will feel like part of the room.',
    ),
@@ -270,7 +270,7 @@ SEO = {
    extra='A game over sound effect or a level up sound instantly turns a normal edit into a gamified one. Use 8-bit jumps and coins on progress bars and counters, the power-up on a glow-up, the game-over fall on a fail, and the announcer lines ("Fight!", "Round one", "Winner!") to frame comparisons and challenges. Everything here is CC0 and free for monetised videos and indie games.',
    ),
  'animals': dict(
-   title='Animal Sound Effects – Dog, Cat, Farm & Bird Sounds (MP3, WAV)',
+   title='Animal Sound Effects – Dog, Cat, Farm & Bird Sounds (Free)',
    h1='Free Animal Sound Effects: Dogs, Cats, Farm & Birds',
    extra="Dog barking sound effects and cat meows are the most searched animal sounds, followed by farm animals like roosters, cows and donkeys. Every file here is a real recording, not an imitation (except where noted in the cartoon category), so they work in documentaries, kids' videos, pet channels and comedy. Birdsong and owl hoots also make quick nature ambiences.",
    ),
@@ -280,7 +280,7 @@ SEO = {
    extra='The referee whistle sound effect is a useful editing tool well beyond football: blow it on a mistake, a foul play joke or the end of a challenge. The boxing bell starts and ends rounds of a debate or a versus video, and ball sounds make playful transitions. Dice and pinball sounds add a game-show feeling to random picks and giveaways.',
    ),
  'doors-household': dict(
-   title='Door Knock & Household Sound Effects – Free Download (MP3, WAV)',
+   title='Door Knock & Household Sound Effects – Free MP3 & WAV',
    h1='Free Door Knock, Door Slam & Household Sound Effects',
    extra='A door knock sound effect is one of the most common hooks for skits and storytelling: knock, cut to a reaction, open the door. The doorbell and intercom work for delivery and visitor scenes, the slam for drama, and the drawer, cupboard and kitchen sounds for realistic foley in vlogs and short films.',
    ),
@@ -290,7 +290,7 @@ SEO = {
    extra='Car horn sound effects and police sirens are classic comedy beats: a honk on an interruption, a siren when someone says something outrageous. The Doppler pass-by and the plane pass give natural movement for transitions, while the tyre screech is the go-to sound for sudden stops and plot twists.',
    ),
  'nature-weather': dict(
-   title='Nature & Weather Sound Effects – Thunder, Rain, Wind (MP3, WAV)',
+   title='Nature & Weather Sound Effects – Thunder, Rain, Wind (Free)',
    h1='Free Thunder, Rain, Wind & Nature Sound Effects',
    extra='A thunder sound effect adds drama to a reveal, rain sets a calm or sad mood, and waves and birdsong make travel and relaxation videos feel immersive. The ambience files are recorded outdoors with real microphones, so they have natural stereo width. Layer two of them (for example rain and distant thunder) for a richer scene.',
    ),
